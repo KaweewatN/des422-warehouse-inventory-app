@@ -9,9 +9,9 @@ export const isAuth = (req, res, next) => {
     }
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, process.env.SUPABASE_JWT_SECRET);
         req.user = decoded;
-        console.log('User ID:', req.user.id);
+        // console.log('User ID:', req.user.id);
         next();
     } catch (err) {
         console.log('Token verification failed:', err.message);
