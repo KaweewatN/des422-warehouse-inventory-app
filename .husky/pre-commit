@@ -1,3 +1,14 @@
-npm run prettier:check
+#!/bin/sh
+# . "$(dirname "$0")/_/husky.sh"
+
+# Automatically format files first
 npm run prettier:format
-npx lerna run build
+
+# Stage only the files that were modified by Prettier
+git diff --name-only --cached --diff-filter=ACM | grep -E "^(packages/frontend|packages/backend)" | xargs git add
+
+# Check for any remaining formatting issues
+npm run prettier:check
+
+# Build the project
+npm run lerna-build
