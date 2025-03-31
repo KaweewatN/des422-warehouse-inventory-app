@@ -20,6 +20,12 @@
     "install-all": "npm install --workspace=packages/frontend && npm install --workspace=packages/backend",
     "uninstall-frontend": "npm uninstall --workspace=packages/frontend",
     "uninstall-backend": "npm uninstall --workspace=packages/backend",
-    "uninstall-all": "npm uninstall --workspace=packages/frontend && npm uninstall --workspace=packages/backend"
+    "uninstall-all": "npm uninstall --workspace=packages/frontend && npm uninstall --workspace=packages/backend",
+    "prettier:check": "npx prettier --check .",
+    "prettier:format": "npx prettier --write ."
+  },
+  "dependencies": {
+    "husky": "^9.1.7",
+    "prettier": "^3.5.3"
   }
 }

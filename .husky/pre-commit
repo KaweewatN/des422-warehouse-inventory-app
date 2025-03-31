@@ -1,0 +1,3 @@
+npx lerna run build
+npm run prettier:check
+npm run prettier:format
