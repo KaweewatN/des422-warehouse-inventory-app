@@ -1,7 +1,7 @@
 import {StyledButton} from "./button.styles";
 
 export default function Button({
-  label,
+  children,
   onClick = () => {},
   fontSize,
   bgColor,
@@ -20,9 +20,9 @@ export default function Button({
       hoverTextColor={hoverTextColor}
       padding={padding}
     >
-      {label}
+      {children}
     </StyledButton>
   );
 }
 
-// can customize the button with props example <Button label="Click Me" bgColor="red" textColor="white" hoverBgColor="blue" hoverTextColor="black" padding="1rem 2rem"/>
+// can customize the button with props example <Button children="Click Me" bgColor="red" textColor="white" hoverBgColor="blue" hoverTextColor="black" padding="1rem 2rem"/>
