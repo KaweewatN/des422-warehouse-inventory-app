@@ -4,8 +4,8 @@ import jwt from 'jsonwebtoken';
 
 const UserController = {
     async SignUp(req, res) {
+        const { fname,lname, phone, uname, password, role = 'user' } = req.body;
         try {
-            const { fname,lname, phone, uname, password, role = 'user' } = req.body;
 
             if (!uname || !password || !fname || !lname || !phone) {
                 return res.status(400).json({
@@ -52,8 +52,8 @@ const UserController = {
         }
     },
     async LogIn(req, res) {
+        const { uname, password } = req.body;
         try {
-            const { uname, password } = req.body;
 
             if (!uname || !password ) {
                 return res.status(400).json({
@@ -101,8 +101,8 @@ const UserController = {
         }
     },
     async UserInfo(req, res) {
+        const user_id = req.user.id;
         try {
-            const user_id = req.user.id;
 
             const user_info_result = await sql`
             SELECT user_id, uname, fname, lname FROM users
