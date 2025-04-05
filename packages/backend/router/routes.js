@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import UserController from '../controller/user.controller.js';
-import { isAuth } from '../utils/Auth.js';
+import { isAuth,Role } from '../utils/Auth.js';
 
 const route = Router();
 

@@ -9,13 +9,13 @@ const UserController = {
 
             if (!uname || !password || !fname || !lname || !phone) {
                 return res.status(400).json({
-                    error: 'Name and password are required.'
+                    error: 'Please fill in all fields.'
                 });
             }
 
-            if (phone.length !== 10) {
+            if (!/^\d{10}$/.test(phone)) {
                 return res.status(400).json({
-                    error : 'Phone number must be 10 digits.'
+                    error: 'Phone number must be exactly 10 digits.'
                 });
             }
 
@@ -55,32 +55,45 @@ const UserController = {
         try {
             const { uname, password } = req.body;
 
+            if (!uname || !password ) {
+                return res.status(400).json({
+                    error: 'Username and password are required'
+                });
+            }
+
             const existing_user = await sql`
-                SELECT user_id, uname, password FROM users
+                SELECT user_id, uname, password,role FROM users
                 WHERE uname = ${uname}`;
 
             if (existing_user.length === 0) {
                 return res.status(400).json({
-                    error: 'User not found.'
+                    error: 'User not found'
                 });
             }
 
             const user = existing_user[0];
 
+            console.log(user.role)
+
             const isMatch = await bcrypt.compare(password, user.password);
             if (!isMatch) {
                 return res.status(400).json({
-                    error: 'Invalid password.'
+                    error: 'Password do not match'
                 });
             }
 
             const token = jwt.sign(
-                { id: user.user_id, username: uname },
+                { id: user.user_id, username: uname, role: user.role },
                 process.env.SUPABASE_JWT_SECRET,
                 { expiresIn: '3h' }
-            );
+              );
+              
 
-            return res.status(200).json({ token });
+            return res.status(200).json(
+                { token,user: {
+                id: user.user_id,
+                role: user.role
+            } });
 
         } catch (err) {
             console.error('Login error:', err);
