@@ -33,7 +33,7 @@ const UserController = {
             const salt = await bcrypt.genSalt(10);
             const hashedPassword = await bcrypt.hash(password, salt);
 
-            const result = await sql`
+      const result = await sql`
                 INSERT INTO users (
                     uname, fname, lname, phone, password, role
                 ) VALUES (
