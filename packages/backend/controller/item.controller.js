@@ -294,6 +294,7 @@ const ItemsController = {
             res.status(500).json({ error: 'Server error' });
         }
     },
+
     async SearchItemsByCategory(req, res) {
         const { category } = req.query;
         const page = parseInt(req.query.page) || 1;
