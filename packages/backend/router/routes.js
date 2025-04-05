@@ -13,12 +13,14 @@ route.get('/user-info',isAuth,UserController.UserInfo)
 
 //Items route
 route.get('/items/search',isAuth,Role('admin','user'),ItemsController.SearchItems)
+route.get('/items/search/category',isAuth,Role('admin','user'),ItemsController.SearchItemsByCategory )
 route.get('/items',isAuth,Role('admin','user'),ItemsController.AllItems)
 route.get('/items/:item_id',isAuth,Role('admin','user'),ItemsController.OneItems)
 route.post('/items/withdrawal',isAuth,Role('user'),ItemsController.Withdrawal)
 route.put('/items/:item_id',isAuth,Role('admin'),ItemsController.UpdateItemsQuantity)
 route.delete('/items/:item_id', isAuth, Role('admin'), ItemsController.SoftDeleteItem);
 route.post('/items/add',isAuth, Role('admin'),upload.single('image'),ItemsController.AddItem)
+
 
 
 export default route

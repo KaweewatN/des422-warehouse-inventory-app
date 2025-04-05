@@ -293,8 +293,57 @@ const ItemsController = {
             console.error('Search item error:', err);
             res.status(500).json({ error: 'Server error' });
         }
-    }    
+    },
+    async SearchItemsByCategory(req, res) {
+        const { category } = req.query;
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const offset = (page - 1) * limit;
     
+        try {
+            const categoryId = parseInt(category);
+    
+            if (!categoryId || isNaN(categoryId)) {
+                return res.status(400).json({ error: 'Category ID must be a valid number.' });
+            }
+    
+            const totalResult = await sql`
+                SELECT COUNT(*) FROM items
+                WHERE is_deleted = FALSE AND item_type_id = ${categoryId}`;
+            const total = parseInt(totalResult[0].count);
+            const pages = Math.ceil(total / limit);
+    
+            const items = await sql`
+                SELECT 
+                    i.item_id,
+                    i.item_name,
+                    i.quantity,
+                    i.description,
+                    i.item_image,
+                    i.sku,
+                    it.type_name AS item_type,
+                    u.uname AS created_by
+                FROM items i
+                LEFT JOIN items_types it ON i.item_type_id = it.item_type_id
+                LEFT JOIN users u ON i.created_by = u.user_id
+                WHERE i.is_deleted = FALSE AND i.item_type_id = ${categoryId}
+                ORDER BY i.item_id
+                LIMIT ${limit} OFFSET ${offset}
+            `;
+    
+            return res.status(200).json({
+                page,
+                limit,
+                total,
+                pages,
+                items
+            });
+    
+        } catch (err) {
+            console.error('Search by category ID error:', err);
+            res.status(500).json({ error: 'Server error' });
+        }
+    }    
 };
 
 export default ItemsController;
