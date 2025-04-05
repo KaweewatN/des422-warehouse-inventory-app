@@ -11,11 +11,11 @@ route.post('/SignUp',UserController.SignUp)
 route.post('/LogIn',UserController.LogIn)
 route.get('/user-info',isAuth,Role('user','admin'),UserController.UserInfo)
 route.get('/user/history',isAuth,Role('user'),UserController.UserWithdrawalHistory)
-route.get('/user-info',isAuth,UserController.UserInfo)
 
 //Items route
 route.get('/items/search',isAuth,Role('admin','user'),ItemsController.SearchItems)
 route.get('/items/search/category',isAuth,Role('admin','user'),ItemsController.SearchItemsByCategory )
+route.get('/items/items_type',isAuth,Role('admin','user'),ItemsController.GetItemTypes)
 route.get('/items',isAuth,Role('admin','user'),ItemsController.AllItems)
 route.get('/items/:item_id',isAuth,Role('admin','user'),ItemsController.OneItems)
 route.post('/items/withdrawal',isAuth,Role('user'),ItemsController.Withdrawal)

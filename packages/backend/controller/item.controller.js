@@ -343,7 +343,20 @@ const ItemsController = {
             console.error('Search by category ID error:', err);
             res.status(500).json({ error: 'Server error' });
         }
-    }    
+    },
+    async GetItemTypes(req, res) {
+        try {
+            const types = await sql`
+                SELECT item_type_id, type_name FROM items_types
+                ORDER BY item_type_id
+            `;
+    
+            return res.status(200).json({ types });
+        } catch (err) {
+            console.error('Fetch item types error:', err);
+            res.status(500).json({ error: 'Server error' });
+        }
+    }
 };
 
 export default ItemsController;
