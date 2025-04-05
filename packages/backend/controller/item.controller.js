@@ -78,8 +78,7 @@ const ItemsController = {
             }
     
             const item_quantity = await sql`
-                SELECT quantity FROM items WHERE item_id = ${item_id} AND is_deleted = FALSE
-            `;
+                SELECT quantity FROM items WHERE item_id = ${item_id} AND is_deleted = FALSE`;
             
             if (item_quantity.length === 0 || item_quantity[0].quantity === 0) {
                 return res.status(204).json({ error: 'Item not found or out of stock' });
@@ -245,6 +244,56 @@ const ItemsController = {
             res.status(500).json({ error: 'Server error' });
         }
     },
+    async SearchItems(req, res) {
+        const { name } = req.query;
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const offset = (page - 1) * limit;
+    
+        try {
+            if (!name) {
+                return res.status(400).json({ error: 'Item name is required for search.' });
+            }
+    
+            const totalResult = await sql`
+                SELECT COUNT(*) FROM items
+                WHERE is_deleted = FALSE AND LOWER(item_name) LIKE LOWER(${`%${name}%`})
+            `;
+            const total = parseInt(totalResult[0].count);
+            const pages = Math.ceil(total / limit);
+    
+            const items = await sql`
+                SELECT 
+                    i.item_id,
+                    i.item_name,
+                    i.quantity,
+                    i.description,
+                    i.item_image,
+                    i.sku,
+                    it.type_name AS item_type,
+                    u.uname AS created_by
+                FROM items i
+                LEFT JOIN items_types it ON i.item_type_id = it.item_type_id
+                LEFT JOIN users u ON i.created_by = u.user_id
+                WHERE i.is_deleted = FALSE
+                  AND LOWER(i.item_name) LIKE LOWER(${`%${name}%`})
+                ORDER BY i.item_id
+                LIMIT ${limit} OFFSET ${offset}
+            `;
+    
+            return res.status(200).json({
+                page,
+                limit,
+                total,
+                pages,
+                items
+            });
+    
+        } catch (err) {
+            console.error('Search item error:', err);
+            res.status(500).json({ error: 'Server error' });
+        }
+    }    
     
 };
 
