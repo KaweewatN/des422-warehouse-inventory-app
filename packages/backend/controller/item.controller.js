@@ -356,7 +356,82 @@ const ItemsController = {
             console.error('Fetch item types error:', err);
             res.status(500).json({ error: 'Server error' });
         }
-    }
+    },
+    async EditItemDetails(req, res) {
+        const { item_id } = req.params;
+        const { item_type_id, item_name, sku, quantity, description } = req.body;
+        const file = req.file;
+      
+        try {
+          if (!item_name || !sku || !quantity || !description || !item_type_id) {
+            return res.status(400).json({ error: 'All fields are required.' });
+          }
+      
+          const existing = await sql`
+            SELECT * FROM items WHERE item_id = ${item_id} AND is_deleted = FALSE
+          `;
+          if (existing.length === 0) {
+            return res.status(404).json({ error: 'Item not found.' });
+          }
+      
+          const currentItem = existing[0];
+      
+          const duplicates = await sql`
+            SELECT * FROM items 
+            WHERE (item_name = ${item_name} OR sku = ${sku}) 
+            AND item_id != ${item_id}`;
+          if (duplicates.length > 0) {
+            return res.status(409).json({ error: 'Item name or SKU already exists for another item.' });
+          }
+      
+          let publicUrl = currentItem.item_image;
+      
+          if (file) {
+            const filePath = file.originalname.replace(/\s+/g, '_');
+      
+            const oldPath = currentItem.item_image?.split('/storage/v1/object/public/picture/')[1];
+            if (oldPath) {
+              await supabase.storage.from('picture').remove([oldPath]);
+            }
+
+            const { error: uploadError } = await supabase.storage
+              .from('picture')
+              .upload(filePath, file.buffer, {
+                contentType: file.mimetype,
+                upsert: false
+              });
+      
+            if (uploadError) {
+              console.error('Upload failed:', uploadError.message);
+              return res.status(500).json({ error: 'Image upload failed.' });
+            }
+      
+            publicUrl = `${process.env.SUPABASE_URL}.supabase.co/storage/v1/object/public/picture/${filePath}`;
+          }
+      
+          const updated = await sql`
+            UPDATE items
+            SET 
+              item_type_id = ${item_type_id},
+              item_name = ${item_name},
+              sku = ${sku},
+              quantity = ${quantity},
+              description = ${description},
+              item_image = ${publicUrl}
+            WHERE item_id = ${item_id}
+            RETURNING item_name,sku`;
+      
+          return res.status(200).json({
+            message: 'Item updated successfully.',
+            item: updated[0]
+          });
+      
+        } catch (err) {
+          console.error('Edit item error:', err);
+          res.status(500).json({ error: 'Server error' });
+        }
+      }
+      
 };
 
 export default ItemsController;

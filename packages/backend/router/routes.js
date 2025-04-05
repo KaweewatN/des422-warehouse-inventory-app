@@ -22,6 +22,7 @@ route.post('/items/withdrawal',isAuth,Role('user'),ItemsController.Withdrawal)
 route.put('/items/:item_id',isAuth,Role('admin'),ItemsController.UpdateItemsQuantity)
 route.delete('/items/:item_id', isAuth, Role('admin'), ItemsController.SoftDeleteItem);
 route.post('/items/add',isAuth, Role('admin'),upload.single('image'),ItemsController.AddItem)
+route.put('/items/edit/:item_id',isAuth, Role('admin'),upload.single('image'),ItemsController.EditItemDetails)
 
 
 
