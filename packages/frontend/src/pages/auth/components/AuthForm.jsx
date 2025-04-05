@@ -1,6 +1,6 @@
 import {Button, Card, Field, Input, Stack} from "@chakra-ui/react";
 import {useForm} from "react-hook-form";
-import {PasswordInput} from "../../../components/chaka-ui/Password-input";
+import {PasswordInput} from "../../../components/chakra-ui/Password-input";
 
 const Auth = () => {
   const {

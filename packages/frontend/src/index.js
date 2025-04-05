@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
-import {Provider} from "./components/chaka-ui/provider";
+import {Provider} from "./components/chakra-ui/provider";
 // files
 import "./index.css";
 import Home from "./pages/home/Home";
