@@ -5,7 +5,7 @@ import reportWebVitals from "./reportWebVitals";
 import {Provider} from "./components/chakra-ui/provider";
 // files
 import "./index.css";
-import Home from "./pages/home/Home";
+import Home from "./pages/home/home";
 import Auth from "./pages/auth/Auth";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
