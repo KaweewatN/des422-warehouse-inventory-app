@@ -12,7 +12,6 @@ route.post('/user/SignUp',UserController.SignUp)
 route.post('/user/LogIn',UserController.LogIn)
 route.get('/user-info',isAuth,Role('user','admin'),UserController.UserInfo)
 route.get('/user/history',isAuth,Role('user'),UserController.UserWithdrawalHistory)
-route.get('/user-info',isAuth,UserController.UserInfo)
 
 //Items route
 route.get('/items/search',isAuth,Role('admin','user'),ItemsController.SearchItems)
