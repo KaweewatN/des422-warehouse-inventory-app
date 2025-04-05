@@ -70,7 +70,8 @@ const ItemsController = {
         }
     },
     async Withdrawal(req, res) {
-        const { user_id, item_id, quantity } = req.body;
+        const { item_id, quantity } = req.body;
+        const user_id = req.user.id;
         try {
     
             if (!user_id || !item_id || !quantity) {
