@@ -7,7 +7,6 @@ packages/*/dist/
 
 # Ignore lock files
 package-lock.json
-yarn.lock
 
 # Ignore environment files
 .env
@@ -21,3 +20,7 @@ packages/*/tmp/
 # Ignore Prettier configuration files
 .prettierrc.json
 .prettierignore
+
+
+# Ignore all readme.md files
+**/readme.md
