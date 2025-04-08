@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
-# . "$(dirname "$0")/h"
+# . "$(dirname "$0")
+
 # Check if the commit includes changes in the frontend or backend
 STAGED_FILES=$(git diff --name-only --cached)
 
