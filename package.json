@@ -5,27 +5,41 @@
     "packages/*"
   ],
   "devDependencies": {
+    "@eslint/js": "^9.24.0",
     "color-support": "^1.1.3",
-    "lerna": "^8.2.1"
+    "eslint": "^8.57.1",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.0.0",
+    "husky": "^9.1.7",
+    "lerna": "^8.2.1",
+    "lint-staged": "^15.5.0"
   },
   "scripts": {
     "lerna-start": "npx lerna run start --parallel",
     "lerna-start-backend": "npx lerna run start --scope backend",
     "lerna-start-frontend": "npx lerna run start --scope frontend",
+    "lerna-dev-backend": "npx lerna run dev --scope backend",
     "lerna-build": "npx lerna run build",
     "lerna-build-backend": "npx lerna run build --scope backend",
     "lerna-build-frontend": "npx lerna run build --scope frontend",
     "install-frontend": "npm install --workspace=packages/frontend",
     "install-backend": "npm install --workspace=packages/backend",
-    "install-all": "npm install --workspace=packages/frontend && npm install --workspace=packages/backend",
+    "install-all": "npm install lerna && npm install --workspace=packages/frontend && npm install --workspace=packages/backend",
     "uninstall-frontend": "npm uninstall --workspace=packages/frontend",
     "uninstall-backend": "npm uninstall --workspace=packages/backend",
     "uninstall-all": "npm uninstall --workspace=packages/frontend && npm uninstall --workspace=packages/backend",
     "prettier:check": "npx prettier --check .",
-    "prettier:format": "npx prettier --write ."
+    "prettier:format": "npx prettier --write .",
+    "prepare": "husky install"
   },
   "dependencies": {
-    "husky": "^9.1.7",
     "prettier": "^3.5.3"
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "prettier --write",
+      "prettier --check",
+      "eslint --max-warnings 0"
+    ]
   }
 }

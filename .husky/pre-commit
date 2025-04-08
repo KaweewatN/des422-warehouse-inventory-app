@@ -1,11 +1,4 @@
 #!/bin/sh
-# . "$(dirname "$0")/_/husky.sh"
+. "$(dirname "$0")/_/husky.sh"
 
-# Automatically format files first
-npm run prettier:format
-
-# Stage only the files that were modified by Prettier
-git diff --name-only --cached --diff-filter=ACM | grep -E "^(packages/frontend|packages/backend)" | xargs git add
-
-# Check for any remaining formatting issues
-npm run prettier:check
+npx lint-staged
