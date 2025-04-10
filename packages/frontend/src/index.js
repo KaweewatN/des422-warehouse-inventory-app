@@ -3,6 +3,8 @@ import ReactDOM from "react-dom/client";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import {Provider} from "./components/chakra-ui/provider";
+// Routes
+import PrivateRoute from "./components/AccessRoute/PrivateRoute";
 // files
 import "./index.css";
 import Home from "./pages/home/home";
@@ -14,7 +16,14 @@ root.render(
     <Provider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            }
+          />
           <Route path="/auth" element={<Auth />} />
         </Routes>
       </BrowserRouter>

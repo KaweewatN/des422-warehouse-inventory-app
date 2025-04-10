@@ -1,16 +1,39 @@
+import {useNavigate} from "react-router-dom";
+// ui
 import {Button, Card, Field, Input, Stack, Checkbox, Text, Link, Box} from "@chakra-ui/react";
 import {useForm} from "react-hook-form";
 import {PasswordInput} from "../../../components/chakra-ui/Password-input";
-import {DEFAULT_COLOR, SELECTED_COLOUR} from "../../../components/constants/Constants";
+import toast, {Toaster} from "react-hot-toast";
 
-const Auth = () => {
+// constants
+import {DEFAULT_COLOR, SELECTED_COLOUR} from "../../../constants/Constants";
+// api
+import apiService from "../../../service/apiService";
+
+const SignInForm = () => {
   const {
     register,
     handleSubmit,
     formState: {errors},
+    reset,
   } = useForm();
 
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const navigate = useNavigate();
+
+  const onSubmit = handleSubmit(async (credentials) => {
+    try {
+      await apiService.login(credentials);
+      toast.success("Login Successful!");
+      navigate("/");
+      reset();
+    } catch (error) {
+      const message =
+        error?.response?.data?.message || // from Axios or custom API error
+        error?.message || // generic error
+        "Username or password is incorrect. Please try again.";
+      toast.error(message);
+    }
+  });
 
   return (
     <form onSubmit={onSubmit}>
@@ -28,22 +51,22 @@ const Auth = () => {
         </Card.Header>
         <Card.Body>
           <Stack gap="6" align="flex-start" maxW="xl">
-            <Field.Root invalid={!!errors.username} required>
+            <Field.Root invalid={!!errors.uname} required>
               <Field.Label fontSize={16}>
-                Email
+                Username
                 <Field.RequiredIndicator />
               </Field.Label>
               <Input
-                type="email"
-                placeholder="johndoe@gmail.com"
-                {...register("username")}
+                type="text"
+                placeholder="johndoe"
+                {...register("uname")}
                 color="gray.800"
                 _focus={{
                   borderColor: SELECTED_COLOUR,
                   boxShadow: "0 0 0 1px teal.500",
                 }}
               />
-              <Field.ErrorText>{errors.username?.message}</Field.ErrorText>
+              <Field.ErrorText>{errors.uname?.message}</Field.ErrorText>
             </Field.Root>
 
             <Field.Root invalid={!!errors.password} required>
@@ -89,6 +112,7 @@ const Auth = () => {
           <Button
             type="submit"
             width="100%"
+            fontSize={16}
             bg={SELECTED_COLOUR}
             color="white"
             _hover={{bg: "teal.600"}}
@@ -98,14 +122,15 @@ const Auth = () => {
           </Button>
           <Text fontSize={14} color="gray.500" mt="4">
             Don't have an account?{" "}
-            <Link href="https://chakra-ui.com" color={SELECTED_COLOUR} fontWeight="bold">
+            <Link href="#" color={SELECTED_COLOUR} fontWeight="bold">
               Sign up
             </Link>
           </Text>
+          <Toaster />
         </Card.Footer>
       </Card.Root>
     </form>
   );
 };
 
-export default Auth;
+export default SignInForm;
