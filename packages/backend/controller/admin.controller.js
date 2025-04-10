@@ -1,4 +1,4 @@
-import sql from '../utils/supabase.js';
+import sql from "../utils/supabase.js";
 
 const AdminController = {
   async GetAllWithdrawals(req, res) {
@@ -34,14 +34,13 @@ const AdminController = {
         limit,
         total,
         pages,
-        withdrawals
+        withdrawals,
       });
     } catch (err) {
-      console.error('Get withdrawals error:', err);
-      res.status(500).json({ error: 'Server error' });
+      console.error("Get withdrawals error:", err);
+      res.status(500).json({error: "Server error"});
     }
   },
-  
 };
 
 export default AdminController;
