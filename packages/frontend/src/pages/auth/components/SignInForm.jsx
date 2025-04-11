@@ -1,4 +1,5 @@
 import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
 // ui
 import {Button, Card, Field, Input, Stack, Checkbox, Text, Link, Box} from "@chakra-ui/react";
 import {useForm} from "react-hook-form";
@@ -20,11 +21,27 @@ const SignInForm = () => {
 
   const navigate = useNavigate();
 
+  // Check if the user is already logged in
+  useEffect(() => {
+    if (apiService.isLogin()) {
+      const role = apiService.getUserRole();
+      if (role === "admin") {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/");
+      }
+    }
+  }, [navigate]);
+
   const onSubmit = handleSubmit(async (credentials) => {
     try {
-      await apiService.login(credentials);
+      const response = await apiService.login(credentials);
       toast.success("Login Successful!");
-      navigate("/");
+      if (response.user?.role === "admin") {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/");
+      }
       reset();
     } catch (error) {
       const message =

@@ -5,10 +5,12 @@ import reportWebVitals from "./reportWebVitals";
 import {Provider} from "./components/chakra-ui/provider";
 // Routes
 import PrivateRoute from "./components/AccessRoute/PrivateRoute";
+import AdminRoute from "./components/AccessRoute/AdminRoute";
 // files
 import "./index.css";
 import Home from "./pages/home/home";
 import Auth from "./pages/auth/Auth";
+import AdminDashboard from "./pages/admin/dashboard/AdminDashboard";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -25,6 +27,14 @@ root.render(
             }
           />
           <Route path="/auth" element={<Auth />} />
+          <Route
+            path="/admin/dashboard"
+            element={
+              <AdminRoute>
+                <AdminDashboard />
+              </AdminRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </Provider>

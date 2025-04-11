@@ -126,8 +126,49 @@ class ApiService {
       throw error;
     }
   }
+
+  // Private API Methods
+  async get(endpoint, config = {}) {
+    try {
+      const response = await this.api.get(endpoint, config);
+      return response.data;
+    } catch (error) {
+      console.error(`GET ${endpoint} failed:`, error.response?.data || error.message);
+      throw error;
+    }
+  }
+
+  async post(endpoint, data = {}, config = {}) {
+    try {
+      const response = await this.api.post(endpoint, data, config);
+      return response.data;
+    } catch (error) {
+      console.error(`POST ${endpoint} failed:`, error.response?.data || error.message);
+      throw error;
+    }
+  }
+
+  async put(endpoint, data = {}, config = {}) {
+    try {
+      const response = await this.api.put(endpoint, data, config);
+      return response.data;
+    } catch (error) {
+      console.error(`PUT ${endpoint} failed:`, error.response?.data || error.message);
+      throw error;
+    }
+  }
+
+  async delete(endpoint, config = {}) {
+    try {
+      const response = await this.api.delete(endpoint, config);
+      return response.data;
+    } catch (error) {
+      console.error(`DELETE ${endpoint} failed:`, error.response?.data || error.message);
+      throw error;
+    }
+  }
 }
 
-// --- Create and Export Singleton Instance ---
+// Create and Export Singleton Instance
 const apiService = new ApiService();
 export default apiService;
