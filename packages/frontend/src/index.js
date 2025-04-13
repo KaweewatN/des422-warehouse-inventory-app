@@ -8,7 +8,9 @@ import PrivateRoute from "./components/AccessRoute/PrivateRoute";
 import AdminRoute from "./components/AccessRoute/AdminRoute";
 // files
 import "./index.css";
-import SidebarNav from "./components/sidebar/SidebarNav";
+import SidebarMenu from "./components/sidebar/SidebarMenu";
+import NavbarMenu from "./components/navbar/NavbarMenu";
+// Routes
 import Home from "./pages/home/home";
 import Auth from "./pages/auth/Auth";
 import AdminDashboard from "./pages/admin/dashboard/AdminDashboard";
@@ -18,14 +20,15 @@ root.render(
   <React.StrictMode>
     <Provider>
       <BrowserRouter>
+        <NavbarMenu userName="John Doe" userAvatar="https://via.placeholder.com/150" />
         <Routes>
           <Route
             path="/"
             element={
               <PrivateRoute>
-                <SidebarNav userRole="user">
+                <SidebarMenu userRole="user">
                   <Home />
-                </SidebarNav>
+                </SidebarMenu>
               </PrivateRoute>
             }
           />
@@ -34,9 +37,9 @@ root.render(
             path="/admin/dashboard"
             element={
               <AdminRoute>
-                <SidebarNav userRole="admin">
+                <SidebarMenu userRole="admin">
                   <AdminDashboard />
-                </SidebarNav>
+                </SidebarMenu>
               </AdminRoute>
             }
           />

@@ -3,7 +3,7 @@ import "./Sidebar.css";
 import Sidebar from "./Sidebar";
 import {userPage, adminPage} from "./Navigation";
 
-function SidebarNav({children, userRole}) {
+function SidebarMenu({children, userRole}) {
   // State to manage whether the sidebar is collapsed or not
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
@@ -27,4 +27,4 @@ function SidebarNav({children, userRole}) {
   );
 }
 
-export default SidebarNav;
+export default SidebarMenu;

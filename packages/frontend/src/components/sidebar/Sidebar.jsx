@@ -5,7 +5,7 @@ import {Box} from "@chakra-ui/react";
 import apiService from "../../service/apiService";
 
 const Sidebar = ({isCollapsed, toggleSidebar, rolePage}) => {
-  const [currentPage, setCurrentPage] = useState(rolePage.currentPage); // Track the current page
+  const [currentPage, setCurrentPage] = useState(rolePage.currentPage);
 
   const handleNavigation = (page) => {
     setCurrentPage(page);

@@ -3,7 +3,7 @@
 /* --- Basic Sidebar Styles --- */
 .sidebar {
   position: fixed;
-  top: 0;
+  top: 4rem;
   left: 0;
   height: 100vh;
   background-color: #ffffff;
@@ -13,8 +13,9 @@
   overflow-x: hidden;
   /* Slightly longer duration, keeping ease-in-out for smooth acceleration/deceleration */
   transition: width 0.35s ease-in-out;
-  z-index: 1000;
+  z-index: 10;
   box-sizing: border-box;
+  padding-bottom: 5rem;
 }
 
 .sidebar-nav {
@@ -130,6 +131,7 @@
 }
 
 .main-content {
+  margin-top: 4rem;
   padding: 20px;
   box-sizing: border-box;
   width: 100%;
