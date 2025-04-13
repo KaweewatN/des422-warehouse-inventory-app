@@ -132,20 +132,23 @@
 
 .main-content {
   margin-top: 4rem;
-  padding: 20px;
   box-sizing: border-box;
+  overflow-x: hidden; /* Prevent horizontal overflow */
+  overflow-y: auto; /* Allow vertical scrolling if needed */
   width: 100%;
-  margin-left: 80px; /* Set base margin for collapsed state */
-  transition: transform 0.5s ease-in-out; /* Slower transition for smoother effect */
-  transform: translateX(0); /* Ensure content starts at the right place */
+  height: 100vh;
+  padding: 1rem;
+  padding-left: 6.5rem;
 }
 
 .main-content.sidebar-expanded {
   transform: translateX(170px); /* Push content for expanded sidebar */
+  transition: 0.5s ease-in-out;
 }
 
 .main-content.sidebar-collapsed {
   transform: translateX(0); /* No translation needed for collapsed sidebar */
+  transition: 0.5s ease-in-out;
 }
 
 .menu-items li.active a {
