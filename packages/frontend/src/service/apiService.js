@@ -127,6 +127,15 @@ class ApiService {
     }
   }
 
+  async logout() {
+    try {
+      this.clearToken();
+    } catch (error) {
+      console.error("Logout failed:", error.response?.data || error.message);
+      throw error;
+    }
+  }
+
   // Private API Methods
   async get(endpoint, config = {}) {
     try {

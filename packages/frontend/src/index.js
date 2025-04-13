@@ -8,6 +8,7 @@ import PrivateRoute from "./components/AccessRoute/PrivateRoute";
 import AdminRoute from "./components/AccessRoute/AdminRoute";
 // files
 import "./index.css";
+import SidebarNav from "./components/sidebar/SidebarNav";
 import Home from "./pages/home/home";
 import Auth from "./pages/auth/Auth";
 import AdminDashboard from "./pages/admin/dashboard/AdminDashboard";
@@ -22,7 +23,9 @@ root.render(
             path="/"
             element={
               <PrivateRoute>
-                <Home />
+                <SidebarNav userRole="user">
+                  <Home />
+                </SidebarNav>
               </PrivateRoute>
             }
           />
@@ -31,7 +34,9 @@ root.render(
             path="/admin/dashboard"
             element={
               <AdminRoute>
-                <AdminDashboard />
+                <SidebarNav userRole="admin">
+                  <AdminDashboard />
+                </SidebarNav>
               </AdminRoute>
             }
           />
