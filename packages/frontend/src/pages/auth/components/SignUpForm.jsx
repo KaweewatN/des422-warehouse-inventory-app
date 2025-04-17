@@ -1,8 +1,7 @@
 import {useForm} from "react-hook-form";
 import {Button, Card, Field, Input, Stack} from "@chakra-ui/react";
 import {PasswordInput} from "../../../components/chakra-ui/Password-input";
-import toast, {Toaster} from "react-hot-toast";
-
+import {ToastContainer, toast} from "react-toastify";
 // api
 import apiService from "../../../service/apiService";
 // constants
@@ -182,8 +181,8 @@ const SignUpForm = () => {
             Submit
           </Button>
         </Card.Footer>
-        <Toaster />
       </Card.Root>
+      <ToastContainer />'
     </form>
   );
 };

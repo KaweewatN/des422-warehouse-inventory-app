@@ -89,6 +89,7 @@ const UserController = {
       return res.status(200).json({
         token,
         user: {
+          uname: user.uname,
           id: user.user_id,
           role: user.role,
         },

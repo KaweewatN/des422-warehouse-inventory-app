@@ -1,0 +1,163 @@
+/* src/Sidebar.css */
+
+/* --- Basic Sidebar Styles --- */
+.sidebar {
+  position: fixed;
+  top: 4rem;
+  left: 0;
+  height: 100vh;
+  background-color: #ffffff;
+  color: #f4f4f4;
+  padding: 1rem 0;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+  overflow-x: hidden;
+  /* Slightly longer duration, keeping ease-in-out for smooth acceleration/deceleration */
+  transition: width 0.35s ease-in-out;
+  z-index: 10;
+  box-sizing: border-box;
+  padding-bottom: 5rem;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.menu-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.logout-item {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* --- Expanded State --- */
+.sidebar.expanded {
+  width: 250px;
+}
+
+/* --- Collapsed State --- */
+.sidebar.collapsed {
+  width: 80px;
+}
+
+/* --- Toggle Button --- */
+.toggle-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  color: #555;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  line-height: 1;
+  z-index: 1001;
+  /* Add transition for button movement */
+  transition:
+    right 0.35s ease-in-out,
+    transform 0.35s ease-in-out;
+}
+
+/* --- Navigation Styles --- */
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 40px 0 0 0;
+}
+
+.sidebar-nav li {
+  margin: 0;
+}
+
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  padding: 15px 25px;
+  color: #424141;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    padding 0.35s ease-in-out; /* Added padding transition */
+}
+
+.sidebar-nav a:hover {
+  background-color: #eeeeee;
+}
+
+.sidebar-nav .icon {
+  margin-right: 15px;
+  font-size: 1.5rem;
+  min-width: 30px;
+  text-align: center;
+  transition: margin-right 0.35s ease-in-out; /* Added transition */
+}
+
+.sidebar-nav .text {
+  opacity: 1;
+  /* Match duration, slight delay might feel nice */
+  transition: opacity 0.3s ease-in-out 0.05s;
+}
+
+/* --- Styles specific to Collapsed state --- */
+.sidebar.collapsed .toggle-button {
+  right: 50%;
+  transform: translateX(50%); /* Center the button */
+}
+
+.sidebar.collapsed .sidebar-nav a {
+  justify-content: center;
+  padding: 15px 0; /* Adjust padding */
+}
+
+.sidebar.collapsed .sidebar-nav .icon {
+  margin-right: 0;
+}
+
+.sidebar.collapsed .sidebar-nav .text {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transition: opacity 0.15s ease-in-out; /* Faster fade out */
+}
+
+.main-content {
+  margin-top: 4rem;
+  box-sizing: border-box;
+  overflow-x: hidden; /* Prevent horizontal overflow */
+  overflow-y: auto; /* Allow vertical scrolling if needed */
+  width: 80%;
+  height: 100vh;
+  padding: 1rem;
+  padding-left: 6.5rem;
+}
+
+.main-content.sidebar-expanded {
+  transform: translateX(170px); /* Push content for expanded sidebar */
+  transition: 0.5s ease-in-out;
+}
+
+.main-content.sidebar-collapsed {
+  transform: translateX(0); /* No translation needed for collapsed sidebar */
+  transition: 0.5s ease-in-out;
+}
+
+.menu-items li.active a {
+  background-color: #f0f0f0; /* Example highlight color */
+  font-weight: 600;
+  color: #17b26a;
+}
+
+.logout-item > li > a {
+  color: rgb(203, 20, 20);
+  font-weight: 600;
+}
