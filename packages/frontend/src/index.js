@@ -1,8 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import {BrowserRouter, Routes, Route, useLocation} from "react-router-dom";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
-import {Provider} from "./components/chakra-ui/provider";
+import {useLocation} from "react-router-dom";
+import {Provider as ChakraProvider} from "./components/chakra-ui/provider";
+import {Provider as ReduxProvider} from "react-redux";
+import {PersistGate} from "redux-persist/integration/react";
+import Store, {persistor} from "./utils/redux/store";
+
 // Routes
 import PrivateRoute from "./components/AccessRoute/PrivateRoute";
 import AdminRoute from "./components/AccessRoute/AdminRoute";
@@ -20,9 +25,7 @@ const Index = () => {
 
   return (
     <>
-      {location.pathname !== "/auth" && (
-        <NavbarMenu userName="John Doe" userAvatar="https://via.placeholder.com/150" />
-      )}
+      {location.pathname !== "/auth" && <NavbarMenu />}
       <Routes>
         <Route
           path="/"
@@ -53,11 +56,15 @@ const Index = () => {
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Provider>
-      <BrowserRouter>
-        <Index />
-      </BrowserRouter>
-    </Provider>
+    <ReduxProvider store={Store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <ChakraProvider>
+          <BrowserRouter>
+            <Index />
+          </BrowserRouter>
+        </ChakraProvider>
+      </PersistGate>
+    </ReduxProvider>
   </React.StrictMode>,
 );
 

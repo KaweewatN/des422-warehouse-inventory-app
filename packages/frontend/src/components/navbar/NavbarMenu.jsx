@@ -1,7 +1,14 @@
 import React from "react";
-import {Box, Flex, Text, Avatar, AvatarGroup, Spacer, Link, Image} from "@chakra-ui/react";
+import {Box, Flex, Text, Avatar, Spacer, Link, Image} from "@chakra-ui/react";
+import {useSelector} from "react-redux";
+//icons
+import {LuChevronDown} from "react-icons/lu";
+//constants
+import {DEFAULT_COLOR} from "../../constants/Constants";
+//components
 
-const NavbarMenu = ({userName, userAvatar}) => {
+const NavbarMenu = () => {
+  const {uname = "-", role = "user"} = useSelector((state) => state.auth);
   return (
     <Box
       as="nav"
@@ -14,6 +21,7 @@ const NavbarMenu = ({userName, userAvatar}) => {
       boxShadow="0 2px 2px rgba(0, 0, 0, 0.07)"
       zIndex="20"
       paddingX="0.7rem"
+      paddingY="0.1rem"
     >
       <Flex align="center">
         {/* App Logo */}
@@ -31,12 +39,28 @@ const NavbarMenu = ({userName, userAvatar}) => {
         {/* User Info */}
         <Flex align="center" gap="0.5rem">
           <Avatar.Root height="2.2rem" width="2.2rem">
-            <Avatar.Fallback name={`${userName}-image`} />
-            <Avatar.Image src="https://bit.ly/sage-adebayo" />
+            <Avatar.Fallback name={`${uname}-image`} />
+            <Avatar.Image
+              src={
+                role === "admin"
+                  ? "./assets/images/default-user-image.avif"
+                  : "./assets/images/default-user-image.avif"
+              }
+            />
           </Avatar.Root>
-          <Text fontSize="md" fontWeight="medium">
-            {userName}
-          </Text>
+          <Box display="flex" alignItems="center" gap="0.5rem" cursor={"pointer"}>
+            <Box display="flex" flexDirection="column" paddingX="0.5rem" textAlign="center">
+              <Text fontSize="md" fontWeight="medium">
+                {uname}
+              </Text>
+              <Text fontSize="sm" fontWeight="medium" color="gray.700">
+                ({role})
+              </Text>
+            </Box>
+            <Text color={DEFAULT_COLOR}>
+              <LuChevronDown />
+            </Text>
+          </Box>
         </Flex>
       </Flex>
     </Box>

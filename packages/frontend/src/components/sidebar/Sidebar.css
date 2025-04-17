@@ -135,7 +135,7 @@
   box-sizing: border-box;
   overflow-x: hidden; /* Prevent horizontal overflow */
   overflow-y: auto; /* Allow vertical scrolling if needed */
-  width: 100%;
+  width: 80%;
   height: 100vh;
   padding: 1rem;
   padding-left: 6.5rem;

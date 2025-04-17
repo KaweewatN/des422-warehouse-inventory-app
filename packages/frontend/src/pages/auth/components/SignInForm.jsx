@@ -1,11 +1,13 @@
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
+import {useDispatch} from "react-redux";
+import {ToastContainer, toast} from "react-toastify";
 // ui
 import {Button, Card, Field, Input, Stack, Checkbox, Text, Link, Box} from "@chakra-ui/react";
-import {useForm} from "react-hook-form";
+import {set, useForm} from "react-hook-form";
 import {PasswordInput} from "../../../components/chakra-ui/Password-input";
-import toast, {Toaster} from "react-hot-toast";
-
+//files
+import {setUser} from "../../../utils/redux/authSlice";
 // constants
 import {DEFAULT_COLOR, SELECTED_COLOUR} from "../../../constants/Constants";
 // api
@@ -20,6 +22,7 @@ const SignInForm = () => {
   } = useForm();
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // Check if the user is already logged in
   useEffect(() => {
@@ -36,11 +39,17 @@ const SignInForm = () => {
   const onSubmit = handleSubmit(async (credentials) => {
     try {
       const response = await apiService.login(credentials);
+      const {uname, role} = response.user;
+      dispatch(setUser({uname, role}));
       toast.success("Login Successful!");
       if (response.user?.role === "admin") {
-        navigate("/admin/dashboard");
+        setTimeout(() => {
+          navigate("/admin/dashboard");
+        }, 1000);
       } else {
-        navigate("/");
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
       }
       reset();
     } catch (error) {
@@ -143,9 +152,9 @@ const SignInForm = () => {
               Sign up
             </Link>
           </Text>
-          <Toaster />
         </Card.Footer>
       </Card.Root>
+      <ToastContainer />
     </form>
   );
 };
