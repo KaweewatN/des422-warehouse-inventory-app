@@ -1,20 +1,17 @@
-import apiService from "../../../service/apiService";
+import ListItemTable from "./components/ListItemTable";
+import {Box, Heading, Mark, Text} from "@chakra-ui/react";
+import {useSelector} from "react-redux";
+import {SELECTED_COLOUR} from "../../../constants/Constants";
 
 export default function AdminDashboard() {
-  const fetchData = async () => {
-    try {
-      const data = await apiService.get("/user/info");
-      console.log("Fetched data:", data);
-    } catch (error) {
-      console.error("Error fetching data:", error.message);
-    }
-  };
-
-  fetchData();
+  const {uname = "admin"} = useSelector((state) => state.auth);
   return (
-    <div>
-      <h1>Admin Dashboard</h1>
-      <p>Welcome to the admin dashboard!</p>
-    </div>
+    <Box>
+      <Heading fontSize={26}>
+        Welcome, <Mark color={SELECTED_COLOUR}>{uname}</Mark> to Admin Dashboard
+      </Heading>
+      <Text color="gray.600">Here’s what happening in the warehouse !</Text>
+      <ListItemTable />
+    </Box>
   );
 }
