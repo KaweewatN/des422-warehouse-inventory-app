@@ -336,15 +336,22 @@ const ItemsController = {
       const limit = parseInt(req.query.limit) || 10;
       const offset = (page - 1) * limit;
 
+      // Get the total number of item types
       const totalResult = await sql`
         SELECT COUNT(*) AS total FROM items_types
       `;
       const total = parseInt(totalResult[0].total);
 
+      // Get item types with the count of items in each type
       const types = await sql`
-        SELECT item_type_id, type_name 
-        FROM items_types
-        ORDER BY item_type_id
+        SELECT 
+          it.item_type_id, 
+          it.type_name, 
+          COUNT(i.item_id)::INTEGER AS item_count
+        FROM items_types it
+        LEFT JOIN items i ON it.item_type_id = i.item_type_id
+        GROUP BY it.item_type_id, it.type_name
+        ORDER BY it.item_type_id
         LIMIT ${limit} OFFSET ${offset}
       `;
 
@@ -362,7 +369,6 @@ const ItemsController = {
       res.status(500).json({error: "Server error"});
     }
   },
-
   async EditItemDetails(req, res) {
     const {item_id} = req.params;
     const {item_type_id, item_name, sku, quantity, description} = req.body;
