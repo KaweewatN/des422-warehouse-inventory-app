@@ -329,19 +329,40 @@ const ItemsController = {
       res.status(500).json({error: "Server error"});
     }
   },
+
   async GetItemTypes(req, res) {
     try {
-      const types = await sql`
-                SELECT item_type_id, type_name FROM items_types
-                ORDER BY item_type_id
-            `;
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 10;
+      const offset = (page - 1) * limit;
 
-      return res.status(200).json({types});
+      const totalResult = await sql`
+        SELECT COUNT(*) AS total FROM items_types
+      `;
+      const total = parseInt(totalResult[0].total);
+
+      const types = await sql`
+        SELECT item_type_id, type_name 
+        FROM items_types
+        ORDER BY item_type_id
+        LIMIT ${limit} OFFSET ${offset}
+      `;
+
+      const pages = Math.ceil(total / limit);
+
+      return res.status(200).json({
+        page,
+        limit,
+        total,
+        pages,
+        types: types,
+      });
     } catch (err) {
       console.error("Fetch item types error:", err);
       res.status(500).json({error: "Server error"});
     }
   },
+
   async EditItemDetails(req, res) {
     const {item_id} = req.params;
     const {item_type_id, item_name, sku, quantity, description} = req.body;
