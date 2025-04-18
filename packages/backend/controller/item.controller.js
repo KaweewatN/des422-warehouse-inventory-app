@@ -336,13 +336,11 @@ const ItemsController = {
       const limit = parseInt(req.query.limit) || 10;
       const offset = (page - 1) * limit;
 
-      // Get the total number of item types
       const totalResult = await sql`
         SELECT COUNT(*) AS total FROM items_types
       `;
       const total = parseInt(totalResult[0].total);
 
-      // Get item types with the count of items in each type
       const types = await sql`
         SELECT 
           it.item_type_id, 
