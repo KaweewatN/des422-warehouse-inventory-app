@@ -6,6 +6,7 @@ import {DEFAULT_API_PAGE_SIZE} from "../../../constants/Constants";
 //files
 import ItemTypesTable from "./components/ItemTypesTable";
 import Greeting from "../components/Greeting";
+import TotalRecords from "../components/TotalRecords";
 
 const ItemTypes = () => {
   const [itemtypes, setItemTypes] = useState([]);
@@ -83,11 +84,11 @@ const ItemTypes = () => {
     <>
       <Greeting />
       <Stack width="full" gap="5" marginTop="2rem">
+        <TotalRecords name="item types" totalRecords={itemtypes.length} />
         <Flex justifyContent="space-between" alignItems="center">
           <Heading size="2xl">All Items Types</Heading>
           <Heading>Hello</Heading>
         </Flex>
-
         <ItemTypesTable
           itemtypes={itemtypes}
           currentPage={currentPage}

@@ -6,6 +6,7 @@ import {DEFAULT_API_PAGE_SIZE} from "../../../constants/Constants";
 //files
 import UsersTable from "./components/UsersTable";
 import Greeting from "../components/Greeting";
+import TotalRecords from "../components/TotalRecords";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -83,8 +84,8 @@ const Users = () => {
     <>
       <Greeting />
       <Stack width="full" gap="5" marginTop="2rem">
+        <TotalRecords name="ีusers" totalRecords={users.length} />
         <Heading size="2xl">All users</Heading>
-
         <UsersTable
           users={users}
           currentPage={currentPage}

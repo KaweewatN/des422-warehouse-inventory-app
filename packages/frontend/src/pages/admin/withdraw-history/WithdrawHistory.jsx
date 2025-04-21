@@ -6,6 +6,7 @@ import {DEFAULT_API_PAGE_SIZE} from "../../../constants/Constants";
 //files
 import WithdrawHistoryTable from "./components/WithdrawHistoryTable";
 import Greeting from "../components/Greeting";
+import TotalRecords from "../components/TotalRecords";
 
 const WithdrawHistory = () => {
   const [withdraws, setWithdraws] = useState([]);
@@ -83,8 +84,8 @@ const WithdrawHistory = () => {
     <>
       <Greeting />
       <Stack width="full" gap="5" marginTop="2rem">
+        <TotalRecords name="withdraws" totalRecords={withdraws.length} />
         <Heading size="2xl">All withdraws</Heading>
-
         <WithdrawHistoryTable
           withdraws={withdraws}
           currentPage={currentPage}

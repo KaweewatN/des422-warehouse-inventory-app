@@ -6,6 +6,7 @@ import {DEFAULT_API_PAGE_SIZE} from "../../../constants/Constants";
 //files
 import ItemsTable from "./components/ItemsTable";
 import Greeting from "../components/Greeting";
+import TotalRecords from "../components/TotalRecords";
 
 const Items = () => {
   const [items, setItems] = useState([]);
@@ -81,11 +82,11 @@ const Items = () => {
     <>
       <Greeting />
       <Stack width="full" paddingBottom="2em" gap="5" marginTop="2rem">
+        <TotalRecords name="items" totalRecords={items.length} />
         <Flex justifyContent="space-between" alignItems="center">
           <Heading size="2xl">All items</Heading>
           <Heading>Hello</Heading>
         </Flex>
-
         <ItemsTable
           items={items}
           currentPage={currentPage}
