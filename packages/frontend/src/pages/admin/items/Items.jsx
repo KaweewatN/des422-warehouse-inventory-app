@@ -80,7 +80,7 @@ const Items = () => {
   return (
     <>
       <Greeting />
-      <Stack width="full" gap="5" marginTop="2rem">
+      <Stack width="full" paddingBottom="2em" gap="5" marginTop="2rem">
         <Flex justifyContent="space-between" alignItems="center">
           <Heading size="2xl">All items</Heading>
           <Heading>Hello</Heading>

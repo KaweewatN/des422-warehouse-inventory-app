@@ -49,11 +49,11 @@ export default function UsersTable({
                 borderColor="gray.300"
                 _hover={{bg: "gray.100", cursor: "pointer"}}
               >
-                <Table.Cell>{user.user_id}</Table.Cell>
-                <Table.Cell>{user.uname}</Table.Cell>
-                <Table.Cell>{user.fname}</Table.Cell>
-                <Table.Cell>{user.lname}</Table.Cell>
-                <Table.Cell>{user.phone}</Table.Cell>
+                <Table.Cell paddingY="1rem">{user.user_id}</Table.Cell>
+                <Table.Cell paddingY="1rem">{user.uname}</Table.Cell>
+                <Table.Cell paddingY="1rem">{user.fname}</Table.Cell>
+                <Table.Cell paddingY="1rem">{user.lname}</Table.Cell>
+                <Table.Cell paddingY="1rem">{user.phone}</Table.Cell>
               </Table.Row>
             ))
           ) : (

@@ -55,15 +55,15 @@ export default function WithdrawHistoryTable({
                 borderColor="gray.300"
                 _hover={{bg: "gray.100", cursor: "pointer"}}
               >
-                <Table.Cell>{withdraw.withdraw_id}</Table.Cell>
-                <Table.Cell>{withdraw.item_id}</Table.Cell>
-                <Table.Cell whiteSpace="normal" maxWidth="200px">
+                <Table.Cell paddingY="1rem">{withdraw.withdraw_id}</Table.Cell>
+                <Table.Cell paddingY="1rem">{withdraw.item_id}</Table.Cell>
+                <Table.Cell whiteSpace="normal" maxWidth="200px" paddingY="1rem">
                   {withdraw.item_name}
                 </Table.Cell>
-                <Table.Cell>{withdraw.user_id}</Table.Cell>
-                <Table.Cell>{withdraw.withdrawn_by}</Table.Cell>
-                <Table.Cell>{withdraw.quantity}</Table.Cell>
-                <Table.Cell>{withdraw.created_at}</Table.Cell>
+                <Table.Cell paddingY="1rem">{withdraw.user_id}</Table.Cell>
+                <Table.Cell paddingY="1rem">{withdraw.withdrawn_by}</Table.Cell>
+                <Table.Cell paddingY="1rem">{withdraw.quantity}</Table.Cell>
+                <Table.Cell paddingY="1rem">{withdraw.created_at}</Table.Cell>
               </Table.Row>
             ))
           ) : (
