@@ -135,10 +135,11 @@
   box-sizing: border-box;
   overflow-x: hidden; /* Prevent horizontal overflow */
   overflow-y: auto; /* Allow vertical scrolling if needed */
-  width: 80%;
+  width: 100%;
   height: 100vh;
-  padding: 1rem;
-  padding-left: 6.5rem;
+  padding-top: 2rem;
+  padding-left: 8rem;
+  padding-right: 3rem;
 }
 
 .main-content.sidebar-expanded {

@@ -19,6 +19,10 @@ import NavbarMenu from "./components/navbar/NavbarMenu";
 import Home from "./pages/home/home";
 import Auth from "./pages/auth/Auth";
 import AdminDashboard from "./pages/admin/dashboard/AdminDashboard";
+import Items from "./pages/admin/items/Items";
+import Users from "./pages/admin/users/Users";
+import ItemTypes from "./pages/admin/item-types/ItemTypes";
+import WithdrawHistory from "./pages/admin/withdraw-history/WithdrawHistory";
 
 const Index = () => {
   const location = useLocation();
@@ -44,6 +48,46 @@ const Index = () => {
             <AdminRoute>
               <SidebarMenu userRole="admin">
                 <AdminDashboard />
+              </SidebarMenu>
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/items"
+          element={
+            <AdminRoute>
+              <SidebarMenu userRole="admin">
+                <Items />
+              </SidebarMenu>
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/users"
+          element={
+            <AdminRoute>
+              <SidebarMenu userRole="admin">
+                <Users />
+              </SidebarMenu>
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/item-types"
+          element={
+            <AdminRoute>
+              <SidebarMenu userRole="admin">
+                <ItemTypes />
+              </SidebarMenu>
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/withdraw-history"
+          element={
+            <AdminRoute>
+              <SidebarMenu userRole="admin">
+                <WithdrawHistory />
               </SidebarMenu>
             </AdminRoute>
           }

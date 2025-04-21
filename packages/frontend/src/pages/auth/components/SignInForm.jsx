@@ -4,7 +4,7 @@ import {useDispatch} from "react-redux";
 import {ToastContainer, toast} from "react-toastify";
 // ui
 import {Button, Card, Field, Input, Stack, Checkbox, Text, Link, Box} from "@chakra-ui/react";
-import {set, useForm} from "react-hook-form";
+import {useForm} from "react-hook-form";
 import {PasswordInput} from "../../../components/chakra-ui/Password-input";
 //files
 import {setUser} from "../../../utils/redux/authSlice";
