@@ -1,4 +1,4 @@
-import {ButtonGroup, IconButton, Spinner, Table, Text, Image, Flex} from "@chakra-ui/react";
+import {ButtonGroup, IconButton, Spinner, Table, Text, Image, Flex, Badge} from "@chakra-ui/react";
 import {Pagination} from "@ark-ui/react";
 import {LuChevronLeft, LuChevronRight} from "react-icons/lu";
 import {SELECTED_COLOUR} from "../../../../constants/Constants";
@@ -33,6 +33,9 @@ export default function ItemsTable({
               Quantity
             </Table.ColumnHeader>
             <Table.ColumnHeader color="black" fontWeight="bold">
+              Status
+            </Table.ColumnHeader>
+            <Table.ColumnHeader color="black" fontWeight="bold">
               Sku
             </Table.ColumnHeader>
             <Table.ColumnHeader color="black" fontWeight="bold">
@@ -46,7 +49,7 @@ export default function ItemsTable({
         <Table.Body bg="gray.200">
           {isLoading ? (
             <Table.Row>
-              <Table.Cell colSpan={8} textAlign="center">
+              <Table.Cell colSpan={9} textAlign="center">
                 <Spinner size="xl" />
               </Table.Cell>
             </Table.Row>
@@ -65,6 +68,17 @@ export default function ItemsTable({
                 </Table.Cell>
                 <Table.Cell>{item.item_type}</Table.Cell>
                 <Table.Cell>{item.quantity}</Table.Cell>
+                <Table.Cell>
+                  {item.quantity > 0 ? (
+                    <Badge variant="solid" colorPalette="green">
+                      Available
+                    </Badge>
+                  ) : (
+                    <Badge variant="solid" colorPalette="red">
+                      Unavailable
+                    </Badge>
+                  )}
+                </Table.Cell>
                 <Table.Cell>{item.sku}</Table.Cell>
                 <Table.Cell>{item.created_by}</Table.Cell>
                 <Table.Cell>
@@ -83,7 +97,7 @@ export default function ItemsTable({
             ))
           ) : (
             <Table.Row>
-              <Table.Cell colSpan={8} textAlign="center">
+              <Table.Cell colSpan={9} textAlign="center">
                 <Text>No products found.</Text>
               </Table.Cell>
             </Table.Row>

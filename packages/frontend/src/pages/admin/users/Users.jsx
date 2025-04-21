@@ -83,8 +83,8 @@ const Users = () => {
   return (
     <>
       <Greeting />
-      <Stack width="full" gap="5" marginTop="2rem">
-        <TotalRecords name="ีusers" totalRecords={users.length} />
+      <Stack width="full" gap="5" marginTop="2rem" paddingBottom="2rem">
+        <TotalRecords name="users" totalRecords={users.length} />
         <Heading size="2xl">All users</Heading>
         <UsersTable
           users={users}

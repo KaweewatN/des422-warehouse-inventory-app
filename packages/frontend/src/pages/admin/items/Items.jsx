@@ -7,6 +7,7 @@ import {DEFAULT_API_PAGE_SIZE} from "../../../constants/Constants";
 import ItemsTable from "./components/ItemsTable";
 import Greeting from "../components/Greeting";
 import TotalRecords from "../components/TotalRecords";
+import AddItemDialog from "./components/AddItemDialog";
 
 const Items = () => {
   const [items, setItems] = useState([]);
@@ -85,7 +86,7 @@ const Items = () => {
         <TotalRecords name="items" totalRecords={items.length} />
         <Flex justifyContent="space-between" alignItems="center">
           <Heading size="2xl">All items</Heading>
-          <Heading>Hello</Heading>
+          <AddItemDialog />
         </Flex>
         <ItemsTable
           items={items}

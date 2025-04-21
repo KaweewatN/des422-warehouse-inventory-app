@@ -1,4 +1,4 @@
-import {ButtonGroup, IconButton, Spinner, Table, Text, Flex} from "@chakra-ui/react";
+import {ButtonGroup, IconButton, Spinner, Table, Text, Flex, Badge} from "@chakra-ui/react";
 import {Pagination} from "@ark-ui/react";
 import {LuChevronLeft, LuChevronRight} from "react-icons/lu";
 import {SELECTED_COLOUR} from "../../../../constants/Constants";
@@ -32,12 +32,15 @@ export default function UsersTable({
             <Table.ColumnHeader color="black" fontWeight="bold">
               Phone
             </Table.ColumnHeader>
+            <Table.ColumnHeader color="black" fontWeight="bold">
+              Role
+            </Table.ColumnHeader>
           </Table.Row>
         </Table.Header>
         <Table.Body bg="gray.200">
           {isLoading ? (
             <Table.Row>
-              <Table.Cell colSpan={5} textAlign="center">
+              <Table.Cell colSpan={6} textAlign="center">
                 <Spinner size="xl" />
               </Table.Cell>
             </Table.Row>
@@ -54,11 +57,36 @@ export default function UsersTable({
                 <Table.Cell paddingY="1rem">{user.fname}</Table.Cell>
                 <Table.Cell paddingY="1rem">{user.lname}</Table.Cell>
                 <Table.Cell paddingY="1rem">{user.phone}</Table.Cell>
+                <Table.Cell paddingY="1rem">
+                  {user.role === "admin" ? (
+                    <Badge
+                      variant="solid"
+                      colorPalette="green"
+                      width="3rem"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                    >
+                      admin
+                    </Badge>
+                  ) : (
+                    <Badge
+                      variant="solid"
+                      colorPalette="blue"
+                      width="3rem"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                    >
+                      {user.role}
+                    </Badge>
+                  )}
+                </Table.Cell>
               </Table.Row>
             ))
           ) : (
             <Table.Row>
-              <Table.Cell colSpan={5} textAlign="center">
+              <Table.Cell colSpan={6} textAlign="center">
                 <Text>No users found.</Text>
               </Table.Cell>
             </Table.Row>

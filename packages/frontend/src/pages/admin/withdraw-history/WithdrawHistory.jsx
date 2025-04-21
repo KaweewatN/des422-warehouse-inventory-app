@@ -83,7 +83,7 @@ const WithdrawHistory = () => {
   return (
     <>
       <Greeting />
-      <Stack width="full" gap="5" marginTop="2rem">
+      <Stack width="full" gap="5" marginTop="2rem" paddingBottom="2rem">
         <TotalRecords name="withdraws" totalRecords={withdraws.length} />
         <Heading size="2xl">All withdraws</Heading>
         <WithdrawHistoryTable
