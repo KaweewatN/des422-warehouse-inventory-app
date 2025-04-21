@@ -157,6 +157,37 @@ const UserController = {
       res.status(500).json({error: "Server error"});
     }
   },
+
+  async ListAllUsers(req, res) {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = (page - 1) * limit;
+
+    try {
+      const totalResult = await sql`
+        SELECT COUNT(*) FROM users`;
+      const total = parseInt(totalResult[0].count);
+      const pages = Math.ceil(total / limit);
+
+      // Fetch paginated users
+      const users = await sql`
+        SELECT user_id, uname, fname, lname, phone, role
+        FROM users
+        ORDER BY user_id ASC
+        LIMIT ${limit} OFFSET ${offset}`;
+
+      return res.status(200).json({
+        page,
+        limit,
+        total,
+        pages,
+        users,
+      });
+    } catch (err) {
+      console.error("List all users error:", err);
+      res.status(500).json({error: "Server error"});
+    }
+  },
 };
 
 export default UserController;

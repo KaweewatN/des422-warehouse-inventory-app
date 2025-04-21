@@ -35,6 +35,7 @@ const ItemsController = {
       res.status(500).json({error: "Server error"});
     }
   },
+
   async OneItems(req, res) {
     const {item_id} = req.params;
     try {
@@ -64,6 +65,7 @@ const ItemsController = {
       res.status(500).json({error: "Server error"});
     }
   },
+
   async Withdrawal(req, res) {
     const {item_id, quantity} = req.body;
     const user_id = req.user.id;
@@ -116,6 +118,8 @@ const ItemsController = {
       res.status(500).json({error: "Server error"});
     }
   },
+
+  // Update item quantity API
   async UpdateItemsQuantity(req, res) {
     const {item_id} = req.params;
     const {quantity} = req.body;
@@ -152,6 +156,7 @@ const ItemsController = {
       res.status(500).json({error: "Server error"});
     }
   },
+
   async SoftDeleteItem(req, res) {
     const {item_id} = req.params;
     try {
@@ -174,6 +179,8 @@ const ItemsController = {
       res.status(500).json({error: "Server error"});
     }
   },
+
+  // Add item API
   async AddItem(req, res) {
     const {item_type_id, item_name, sku, quantity, description} = req.body;
     const file = req.file;
@@ -231,6 +238,8 @@ const ItemsController = {
       res.status(500).json({error: "Server error"});
     }
   },
+
+  // Search items API
   async SearchItems(req, res) {
     const {name} = req.query;
     const page = parseInt(req.query.page) || 1;
@@ -280,6 +289,8 @@ const ItemsController = {
       res.status(500).json({error: "Server error"});
     }
   },
+
+  // Search items by category API
   async SearchItemsByCategory(req, res) {
     const {category} = req.query;
     const page = parseInt(req.query.page) || 1;
@@ -329,19 +340,40 @@ const ItemsController = {
       res.status(500).json({error: "Server error"});
     }
   },
-  async GetItemTypes(req, res) {
-    try {
-      const types = await sql`
-                SELECT item_type_id, type_name FROM items_types
-                ORDER BY item_type_id
-            `;
 
-      return res.status(200).json({types});
+  // Get all item types API
+  async GetItemTypes(req, res) {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = (page - 1) * limit;
+
+    try {
+      const totalResult = await sql`
+        SELECT COUNT(*) FROM items_types`;
+      const total = parseInt(totalResult[0].count);
+      const pages = Math.ceil(total / limit);
+
+      const types = await sql`
+        SELECT it.item_type_id, it.type_name, COUNT(*)::INTEGER AS item_count
+        FROM items_types it
+        JOIN items i ON it.item_type_id = i.item_type_id
+        GROUP BY it.item_type_id, it.type_name
+        ORDER BY item_type_id
+        LIMIT ${limit} OFFSET ${offset}`;
+
+      return res.status(200).json({
+        page,
+        limit,
+        total,
+        pages,
+        types,
+      });
     } catch (err) {
       console.error("Fetch item types error:", err);
       res.status(500).json({error: "Server error"});
     }
   },
+
   async EditItemDetails(req, res) {
     const {item_id} = req.params;
     const {item_type_id, item_name, sku, quantity, description} = req.body;
