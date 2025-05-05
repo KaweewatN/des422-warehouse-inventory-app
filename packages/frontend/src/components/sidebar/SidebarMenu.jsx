@@ -5,7 +5,7 @@ import {userPage, adminPage} from "./Navigation";
 
 function SidebarMenu({children, userRole}) {
   // State to manage whether the sidebar is collapsed or not
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
 
   // Determine the role-based navigation
   const rolePage = userRole === "admin" ? adminPage : userPage;

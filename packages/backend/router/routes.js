@@ -38,5 +38,6 @@ route.put(
 
 //admin routes
 route.get("/admin/history", isAuth, Role("admin"), AdminController.GetAllWithdrawals);
+route.get("/admin/summary", isAuth, Role("admin"), AdminController.GetAdminSummary);
 
 export default route;

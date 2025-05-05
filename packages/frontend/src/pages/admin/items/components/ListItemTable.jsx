@@ -1,107 +1,19 @@
-import {
-  ButtonGroup,
-  Heading,
-  IconButton,
-  Spinner,
-  Stack,
-  Table,
-  Text,
-  Alert,
-  Image,
-  Box,
-} from "@chakra-ui/react";
+import {ButtonGroup, IconButton, Spinner, Table, Text, Image} from "@chakra-ui/react";
 import {Pagination} from "@ark-ui/react";
-import {useEffect, useState} from "react";
 import {LuChevronLeft, LuChevronRight} from "react-icons/lu";
-import {useNavigate} from "react-router-dom";
-import apiService from "../../../../service/apiService";
 import {SELECTED_COLOUR} from "../../../../constants/Constants";
-import AddNewItemForm from "../../items/components/AddNewItemForm";
 
-const ListItemTable = () => {
-  const [items, setItems] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [totalItems, setTotalItems] = useState(0);
-  const [pageSize] = useState(10);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [cache, setCache] = useState({});
-
-  const navigate = useNavigate();
-
-  // UseEffect to fetch data when the component mounts or when currentPage changes
-  useEffect(() => {
-    const fetchData = async () => {
-      // Check if data for the current page is already cached
-      if (cache[currentPage]) {
-        const cachedData = cache[currentPage];
-        setItems(cachedData.items);
-        setTotalItems(cachedData.totalItems);
-        setTotalPages(cachedData.totalPages);
-        return;
-      }
-
-      setIsLoading(true);
-      setError(null);
-      try {
-        const response = await apiService.get(`/items?page=${currentPage}&limit=${pageSize}`);
-
-        const data = {
-          items: response.items || [],
-          totalItems: response.total || 0,
-          totalPages: response.pages || 1,
-        };
-
-        // Update state with the fetched data
-        setItems(data.items);
-        setTotalItems(data.totalItems);
-        setTotalPages(data.totalPages);
-
-        // Cache the response
-        setCache((prevCache) => ({
-          ...prevCache,
-          [currentPage]: data,
-        }));
-      } catch (err) {
-        console.error("Error fetching data:", err);
-        setError(err.message || "An error occurred while fetching data. Please try again.");
-        setItems([]);
-        setTotalItems(0);
-        setTotalPages(1);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [currentPage, pageSize, cache]);
-
-  // Function to handle page change
-  const handlePageChange = (details) => {
-    setCurrentPage(details.page);
-  };
-
-  // Function to handle row click
-  const handleRowClick = (itemId) => {
-    navigate(`/item/${itemId}`);
-  };
-
-  if (error) {
-    return (
-      <Alert status="error" variant="solid">
-        <Alert.Description>{error}</Alert.Description>
-      </Alert>
-    );
-  }
-
+const ListItemTable = ({
+  items,
+  currentPage,
+  totalPages,
+  totalItems,
+  pageSize,
+  isLoading,
+  handlePageChange,
+}) => {
   return (
-    <Stack width="full" gap="5" marginTop="2rem">
-      <Box width="full" display="flex" justifyContent="space-between">
-        <Heading size="2xl">All items</Heading>
-        <AddNewItemForm />
-      </Box>
-
+    <>
       <Table.Root size="sm" variant="outline" interactive>
         <Table.Header bg="#EAECF0">
           <Table.Row>
@@ -142,7 +54,6 @@ const ListItemTable = () => {
             items.map((item) => (
               <Table.Row
                 key={item.item_id}
-                onClick={() => handleRowClick(item.item_id)}
                 bg={"white"}
                 borderColor="gray.300"
                 _hover={{bg: "gray.100", cursor: "pointer"}}
@@ -229,7 +140,7 @@ const ListItemTable = () => {
           </ButtonGroup>
         </Pagination.Root>
       )}
-    </Stack>
+    </>
   );
 };
 

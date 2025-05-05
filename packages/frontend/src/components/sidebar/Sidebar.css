@@ -133,7 +133,7 @@
 .main-content {
   margin-top: 4rem;
   box-sizing: border-box;
-  overflow-x: hidden; /* Prevent horizontal overflow */
+  overflow-x: hidden;
   overflow-y: auto; /* Allow vertical scrolling if needed */
   scrollbar-width: none; /* Hide scrollbar in Firefox */
   width: 100%;

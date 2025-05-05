@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {LuChevronsRight, LuChevronsLeft} from "react-icons/lu";
 import {Box} from "@chakra-ui/react";
-// api service
+import {Link} from "react-router-dom"; // Import Link from React Router
 import apiService from "../../service/apiService";
 
 const Sidebar = ({isCollapsed, toggleSidebar, rolePage}) => {
@@ -48,17 +48,17 @@ const Sidebar = ({isCollapsed, toggleSidebar, rolePage}) => {
               className={currentPage === item.path ? "active" : ""}
               onClick={() => handleNavigation(item.path)}
             >
-              <a href={item.path}>
+              <Link to={item.path}>
                 <span className="icon">{item.icon}</span>
                 <span className="text">{item.label}</span>
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
         <ul className="logout-item">
           <li>
-            <a
-              href={rolePage.navigation[rolePage.navigation.length - 1].path}
+            <Link
+              to={rolePage.navigation[rolePage.navigation.length - 1].path}
               onClick={() => {
                 handleNavigation("/auth");
                 handleLogout();
@@ -70,7 +70,7 @@ const Sidebar = ({isCollapsed, toggleSidebar, rolePage}) => {
               <span className="text">
                 {rolePage.navigation[rolePage.navigation.length - 1].label}
               </span>
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>

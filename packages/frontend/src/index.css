@@ -9,6 +9,12 @@ body {
   color: #000;
 }
 
+/* prevent :horizontal on the body and html */
+html,
+body {
+  overflow-x: hidden;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }

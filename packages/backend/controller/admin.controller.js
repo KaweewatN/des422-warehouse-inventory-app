@@ -41,6 +41,28 @@ const AdminController = {
       res.status(500).json({error: "Server error"});
     }
   },
+
+  async GetAdminSummary(req, res) {
+    try {
+      const totalUsers = await sql`SELECT COUNT(*) FROM users`;
+      const totalItems = await sql`SELECT COUNT(*) FROM items`;
+      const totalItemTypes = await sql`SELECT COUNT(*) FROM items_types`;
+      const totalWithdrawals = await sql`SELECT COUNT(*) FROM withdrawal`;
+
+      return res.status(200).json({
+        message: "Admin summary fetched successfully",
+        data: {
+          totalUsers: parseInt(totalUsers[0].count),
+          totalItems: parseInt(totalItems[0].count),
+          totalItemTypes: parseInt(totalItemTypes[0].count),
+          totalWithdrawals: parseInt(totalWithdrawals[0].count),
+        },
+      });
+    } catch (err) {
+      console.error("Get admin summary error:", err);
+      res.status(500).json({error: "Server error"});
+    }
+  },
 };
 
 export default AdminController;
