@@ -10,6 +10,15 @@ const Sidebar = ({isCollapsed, toggleSidebar, rolePage}) => {
   const location = useLocation(); // Get the current URL path
   const currentPath = location.pathname; // Extract the current path
 
+  // Function to handle navigation
+  const handleNavigation = (path) => {
+    if (currentPath !== path) {
+      window.location.href = path;
+    } else {
+      console.log("Already on the same page");
+    }
+  };
+
   const handleLogout = async () => {
     try {
       await apiService.logout();

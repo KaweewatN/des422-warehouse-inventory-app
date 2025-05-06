@@ -8,7 +8,7 @@ import WithdrawHistoryTable from "./components/WithdrawHistoryTable";
 import Greeting from "../components/Greeting";
 import TotalRecords from "../components/TotalRecords";
 
-const WithdrawHistory = () => {
+export default function WithdrawHistory() {
   const [withdraws, setWithdraws] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -98,6 +98,4 @@ const WithdrawHistory = () => {
       </Stack>
     </>
   );
-};
-
-export default WithdrawHistory;
+}

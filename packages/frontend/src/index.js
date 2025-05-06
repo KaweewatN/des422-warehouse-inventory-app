@@ -19,7 +19,7 @@ import NavbarMenu from "./components/navbar/NavbarMenu";
 import Home from "./pages/home/home";
 import Auth from "./pages/auth/Auth";
 import AdminDashboard from "./pages/admin/dashboard/AdminDashboard";
-import WithDrawHistory from "./pages/admin/withdraw-history/WithDrawHistory";
+import WithdrawHistory from "./pages/admin/withdraw-history/WithdrawHistory";
 import Users from "./pages/admin/users/Users";
 import Items from "./pages/admin/items/Items";
 import ItemTypes from "./pages/admin/item-types/ItemTypes";
@@ -57,7 +57,7 @@ const Index = () => {
           element={
             <AdminRoute>
               <SidebarMenu userRole="admin">
-                <WithDrawHistory />
+                <WithdrawHistory />
               </SidebarMenu>
             </AdminRoute>
           }
