@@ -1,5 +1,5 @@
 import React from "react";
-import {Box, Flex, Text, Avatar, Spacer, Link, Image} from "@chakra-ui/react";
+import {Box, Flex, Text, Avatar, Spacer, Link, Image, Badge} from "@chakra-ui/react";
 import {useSelector} from "react-redux";
 //icons
 import {LuChevronDown} from "react-icons/lu";
@@ -53,9 +53,16 @@ const NavbarMenu = () => {
               <Text fontSize="md" fontWeight="medium">
                 {uname}
               </Text>
-              <Text fontSize="sm" fontWeight="medium" color="gray.700">
-                ({role})
-              </Text>
+              <Badge
+                variant="solid"
+                colorPalette={role === "admin" ? "teal" : "blue"}
+                width="fit-content"
+                fontSize="xs"
+                px={2}
+                borderRadius="md"
+              >
+                {role === "admin" ? "Admin" : "User"}
+              </Badge>
             </Box>
             <Text color={DEFAULT_COLOR}>
               <LuChevronDown />
