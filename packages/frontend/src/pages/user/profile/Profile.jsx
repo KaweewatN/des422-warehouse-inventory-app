@@ -59,14 +59,15 @@ export default function Profile() {
       </Heading>
       <Flex flexDirection="column" alignItems="center" mt={2} gapY={3}>
         <Avatar.Root height="9rem" width="9rem">
-          <Avatar.Fallback name={`${user.uname}-image`} />
-          <Avatar.Image
-            src={
-              role === "admin"
-                ? "./assets/images/default-user-image.avif"
-                : "./assets/images/default-user-image.avif"
-            }
+          <Avatar.Fallback
+            name={`${user.uname}-image`}
+            style={{
+              fontSize: "3rem",
+              fontWeight: "normal",
+              color: "white",
+            }}
           />
+          <Avatar.Image src={null} />
         </Avatar.Root>
         <Badge
           variant="solid"

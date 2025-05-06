@@ -7,7 +7,7 @@ export default function Greeting({children}) {
   return (
     <Box>
       <Heading fontSize={26}>
-        Welcome, <Mark color={SELECTED_COLOUR}>{uname}</Mark> to KongKlang
+        Welcome, <Mark color={SELECTED_COLOUR}>{uname}</Mark> to KongKhlang
       </Heading>
       <Text color="gray.600" marginBottom="2rem">
         The smart way to manage your warehouse!

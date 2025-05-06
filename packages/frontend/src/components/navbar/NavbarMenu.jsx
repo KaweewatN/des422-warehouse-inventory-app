@@ -40,13 +40,7 @@ const NavbarMenu = () => {
         <Flex align="center" gap="0.5rem">
           <Avatar.Root height="2.2rem" width="2.2rem">
             <Avatar.Fallback name={`${uname}-image`} />
-            <Avatar.Image
-              src={
-                role === "admin"
-                  ? "./assets/images/default-user-image.avif"
-                  : "./assets/images/default-user-image.avif"
-              }
-            />
+            <Avatar.Image src={null} />
           </Avatar.Root>
           <Box display="flex" alignItems="center" gap="0.5rem" cursor={"pointer"}>
             <Box display="flex" flexDirection="column" paddingX="0.5rem" textAlign="center">
