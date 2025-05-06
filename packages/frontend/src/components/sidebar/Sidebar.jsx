@@ -1,14 +1,22 @@
-import React, {useState} from "react";
+import React from "react";
 import {LuChevronsRight, LuChevronsLeft} from "react-icons/lu";
 import {Box} from "@chakra-ui/react";
+import {Link} from "react-router-dom"; // Import Link from React Router
+import {useLocation} from "react-router-dom"; // Import useLocation
 // api service
 import apiService from "../../service/apiService";
 
 const Sidebar = ({isCollapsed, toggleSidebar, rolePage}) => {
-  const [currentPage, setCurrentPage] = useState(rolePage.currentPage);
+  const location = useLocation(); // Get the current URL path
+  const currentPath = location.pathname; // Extract the current path
 
-  const handleNavigation = (page) => {
-    setCurrentPage(page);
+  // Function to handle navigation
+  const handleNavigation = (path) => {
+    if (currentPath !== path) {
+      window.location.href = path;
+    } else {
+      console.log("Already on the same page");
+    }
   };
 
   const handleLogout = async () => {
@@ -45,20 +53,19 @@ const Sidebar = ({isCollapsed, toggleSidebar, rolePage}) => {
           {rolePage.navigation.slice(0, -1).map((item) => (
             <li
               key={item.path}
-              className={currentPage === item.path ? "active" : ""}
-              onClick={() => handleNavigation(item.path)}
+              className={currentPath === item.path ? "active" : ""} // Highlight active item
             >
-              <a href={item.path}>
+              <Link to={item.path}>
                 <span className="icon">{item.icon}</span>
                 <span className="text">{item.label}</span>
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
         <ul className="logout-item">
           <li>
-            <a
-              href={rolePage.navigation[rolePage.navigation.length - 1].path}
+            <Link
+              to={rolePage.navigation[rolePage.navigation.length - 1].path}
               onClick={() => {
                 handleNavigation("/auth");
                 handleLogout();
@@ -70,7 +77,7 @@ const Sidebar = ({isCollapsed, toggleSidebar, rolePage}) => {
               <span className="text">
                 {rolePage.navigation[rolePage.navigation.length - 1].label}
               </span>
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>

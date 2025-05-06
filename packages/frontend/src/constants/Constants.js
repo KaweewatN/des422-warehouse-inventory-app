@@ -16,3 +16,5 @@ export const DEFAULT_SCROLLBAR_STYLES = {
     backgroundColor: "gray.200",
   },
 };
+
+export const DEFAULT_API_PAGE_SIZE = 10;
