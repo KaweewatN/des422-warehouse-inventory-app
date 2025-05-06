@@ -1,15 +1,14 @@
-import React, {useState} from "react";
+import React from "react";
 import {LuChevronsRight, LuChevronsLeft} from "react-icons/lu";
 import {Box} from "@chakra-ui/react";
 import {Link} from "react-router-dom"; // Import Link from React Router
+import {useLocation} from "react-router-dom"; // Import useLocation
+// api service
 import apiService from "../../service/apiService";
 
 const Sidebar = ({isCollapsed, toggleSidebar, rolePage}) => {
-  const [currentPage, setCurrentPage] = useState(rolePage.currentPage);
-
-  const handleNavigation = (page) => {
-    setCurrentPage(page);
-  };
+  const location = useLocation(); // Get the current URL path
+  const currentPath = location.pathname; // Extract the current path
 
   const handleLogout = async () => {
     try {
@@ -45,8 +44,7 @@ const Sidebar = ({isCollapsed, toggleSidebar, rolePage}) => {
           {rolePage.navigation.slice(0, -1).map((item) => (
             <li
               key={item.path}
-              className={currentPage === item.path ? "active" : ""}
-              onClick={() => handleNavigation(item.path)}
+              className={currentPath === item.path ? "active" : ""} // Highlight active item
             >
               <Link to={item.path}>
                 <span className="icon">{item.icon}</span>

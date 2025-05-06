@@ -7,6 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: white;
   color: #000;
+  overflow-x: hidden;
 }
 
 /* prevent :horizontal on the body and html */
