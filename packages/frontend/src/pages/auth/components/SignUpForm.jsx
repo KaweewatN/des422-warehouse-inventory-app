@@ -55,7 +55,7 @@ const SignUpForm = () => {
           <Card.Description fontSize={15}>Please fill in your information below</Card.Description>
         </Card.Header>
         <Card.Body>
-          <Stack gap="6" align="flex-start" maxW="xl">
+          <Stack gap="6" align="flex-start" width="100%">
             <Field.Root invalid={!!errors.uname} required>
               <Field.Label fontSize={16}>
                 Username

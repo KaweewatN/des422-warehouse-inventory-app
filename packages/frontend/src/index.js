@@ -16,13 +16,16 @@ import "./index.css";
 import SidebarMenu from "./components/sidebar/SidebarMenu";
 import NavbarMenu from "./components/navbar/NavbarMenu";
 // Routes
-import Home from "./pages/home/home";
+import Home from "./pages/user/home/Home";
 import Auth from "./pages/auth/Auth";
 import AdminDashboard from "./pages/admin/dashboard/AdminDashboard";
 import WithdrawHistory from "./pages/admin/withdraw-history/WithdrawHistory";
 import Users from "./pages/admin/users/Users";
 import Items from "./pages/admin/items/Items";
 import ItemTypes from "./pages/admin/item-types/ItemTypes";
+import History from "./pages/user/history/History";
+import Profile from "./pages/user/profile/Profile";
+import AdminProfile from "./pages/admin/profile/AdminProfile";
 
 const Index = () => {
   const location = useLocation();
@@ -31,6 +34,7 @@ const Index = () => {
     <>
       {location.pathname !== "/auth" && <NavbarMenu />}
       <Routes>
+        <Route path="/auth" element={<Auth />} />
         <Route
           path="/"
           element={
@@ -41,7 +45,26 @@ const Index = () => {
             </PrivateRoute>
           }
         />
-        <Route path="/auth" element={<Auth />} />
+        <Route
+          path="/history"
+          element={
+            <PrivateRoute>
+              <SidebarMenu userRole="user">
+                <History />
+              </SidebarMenu>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoute>
+              <SidebarMenu userRole="user">
+                <Profile />
+              </SidebarMenu>
+            </PrivateRoute>
+          }
+        />
         <Route
           path="/admin/dashboard"
           element={
@@ -88,6 +111,16 @@ const Index = () => {
             <AdminRoute>
               <SidebarMenu userRole="admin">
                 <ItemTypes />
+              </SidebarMenu>
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/profile"
+          element={
+            <AdminRoute>
+              <SidebarMenu userRole="admin">
+                <AdminProfile />
               </SidebarMenu>
             </AdminRoute>
           }

@@ -25,7 +25,7 @@ export const adminPage = {
     {path: "/admin/item-types", label: "Item Types", icon: <BiSolidCategory />},
     {path: "/admin/withdraw-history", label: "Withdraw History", icon: <IoDocumentText />},
     {path: "/admin/users", label: "Users", icon: <FaUserFriends />},
-    {path: "/profile", label: "Profile", icon: <RiAdminFill />},
+    {path: "/admin/profile", label: "Profile", icon: <RiAdminFill />},
     {path: "/settings", label: "Settings", icon: <IoIosSettings />},
     {path: "/auth", label: "Logout", icon: <LuLogOut />},
   ],
