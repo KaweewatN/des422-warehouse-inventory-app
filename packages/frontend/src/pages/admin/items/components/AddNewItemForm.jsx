@@ -53,7 +53,7 @@ export default function AddNewItemForm() {
       formData.append("quantity", data.quantity);
       formData.append("image", data.image?.[0]);
 
-      const response = await apiService.post("/items/add", formData, {
+      await apiService.post("/items/add", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
