@@ -10,6 +10,7 @@ import {
   Input,
   Flex,
   Heading,
+  Badge,
 } from "@chakra-ui/react";
 import apiService from "../../../service/apiService";
 import Greeting from "../components/Greeting";
@@ -54,14 +55,6 @@ export default function Home() {
     fetchItems();
     fetchCategories();
   }, [currentPage, pageSize]);
-
-  useEffect(() => {
-    if (searchType === "category" && Array.isArray(categories) && categories.length > 0) {
-      setSearchQuery(categories[0].item_type_id);
-    } else {
-      setSearchQuery("");
-    }
-  }, [searchType, categories]);
 
   const handleSearch = async () => {
     setLoading(true);
@@ -166,11 +159,18 @@ export default function Home() {
                 fontWeight: "500",
               }}
             >
-              {categories.map((category) => (
-                <option key={category.type_name} value={category.item_type_id}>
-                  {category.type_name}
-                </option>
-              ))}
+              <option value="" disabled>
+                Select a category
+              </option>
+              {categories && categories.length > 0 ? (
+                categories.map((category) => (
+                  <option key={category.type_name} value={category.item_type_id}>
+                    {category.type_name}
+                  </option>
+                ))
+              ) : (
+                <option disabled>No categories available</option>
+              )}
             </select>
           )}
           <Button variant="solid" colorPalette="teal" onClick={handleSearch}>
@@ -203,10 +203,15 @@ export default function Home() {
               </Flex>
               <Box p="4" height="fit-content">
                 <Flex flexDirection="column" gap="1" fontWeight="semibold">
-                  <Text fontSize="lg" fontWeight="bold">
-                    {item.item_name}
-                  </Text>
-                  <Text fontSize="sm" fontWeight="medium" color="teal.600">
+                  <Flex justifyContent="space-between" alignItems="center">
+                    <Text fontSize="lg" fontWeight="bold">
+                      {item.item_name}
+                    </Text>
+                    <Badge p="1" bg="gray.700">
+                      {item.item_type}
+                    </Badge>
+                  </Flex>
+                  <Text fontSize="sm" fontWeight="semibold" color="teal.600">
                     SKU: {item.sku}
                   </Text>
                   <Text fontSize="sm" color="gray.600">

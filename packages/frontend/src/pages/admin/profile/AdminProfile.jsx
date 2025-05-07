@@ -3,7 +3,7 @@ import {Box, Text, Heading, Spinner, Alert, Mark, Avatar, Flex, Badge} from "@ch
 import apiService from "../../../service/apiService";
 import {useSelector} from "react-redux";
 
-export default function Profile() {
+export default function AdminProfile() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

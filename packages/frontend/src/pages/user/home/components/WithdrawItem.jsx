@@ -10,6 +10,7 @@ import {
   Flex,
   Image,
   Mark,
+  Badge,
 } from "@chakra-ui/react";
 import {SELECTED_COLOUR} from "../../../../constants/Constants";
 import {ToastContainer, toast} from "react-toastify";
@@ -67,9 +68,14 @@ export default function WithdrawItem({item}) {
             <Dialog.Body>
               {/* Display full item information */}
               <Stack spacing="4" mb="6">
-                <Text fontSize="2xl" fontWeight="bold">
-                  {item.item_name}
-                </Text>
+                <Flex justifyContent="space-between" alignItems="center">
+                  <Text fontSize="2xl" fontWeight="bold">
+                    {item.item_name}
+                  </Text>
+                  <Badge py="1" px="2" bg="gray.700">
+                    {item.item_type}
+                  </Badge>
+                </Flex>
                 <Flex justifyContent="center" alignItems="center" height="20rem" p="2" mt="3">
                   <Image
                     src={item.item_image}

@@ -1,16 +1,15 @@
-import {Navigate, useLocation} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 import apiService from "../../service/apiService";
 
 const PrivateRoute = ({children}) => {
   const isAuthenticated = apiService.isLogin();
   const userRole = apiService.getUserRole();
-  const location = useLocation();
 
   if (!isAuthenticated) {
     return <Navigate to="/auth" replace />;
   }
 
-  if (userRole === "admin" && location.pathname !== "/profile") {
+  if (userRole === "admin") {
     return <Navigate to="/admin/dashboard" replace />;
   }
 

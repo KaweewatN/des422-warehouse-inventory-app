@@ -53,7 +53,7 @@ const HistoryTable = ({
               >
                 <Table.Cell>{entry.withdraw_id}</Table.Cell>
                 <Table.Cell>{entry.item_id}</Table.Cell>
-                <Table.Cell>{entry.item_name}</Table.Cell>
+                <Table.Cell fontWeight="semibold">{entry.item_name}</Table.Cell>
                 <Table.Cell>{entry.quantity}</Table.Cell>
                 <Table.Cell>{new Date(entry.created_at).toLocaleDateString()}</Table.Cell>
               </Table.Row>

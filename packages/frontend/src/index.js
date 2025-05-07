@@ -25,6 +25,7 @@ import Items from "./pages/admin/items/Items";
 import ItemTypes from "./pages/admin/item-types/ItemTypes";
 import History from "./pages/user/history/History";
 import Profile from "./pages/user/profile/Profile";
+import AdminProfile from "./pages/admin/profile/AdminProfile";
 
 const Index = () => {
   const location = useLocation();
@@ -110,6 +111,16 @@ const Index = () => {
             <AdminRoute>
               <SidebarMenu userRole="admin">
                 <ItemTypes />
+              </SidebarMenu>
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/profile"
+          element={
+            <AdminRoute>
+              <SidebarMenu userRole="admin">
+                <AdminProfile />
               </SidebarMenu>
             </AdminRoute>
           }
