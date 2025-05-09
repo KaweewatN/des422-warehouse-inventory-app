@@ -208,7 +208,7 @@ const ItemsController = {
         console.error("Upload failed:", uploadError.message);
         return res.status(500).json({error: "Image upload failed."});
       }
-      const publicUrl = `${process.env.SUPABASE_URL}.supabase.co/storage/v1/object/public/picture/${filePath}`;
+      const publicUrl = `${process.env.SUPABASE_URL}/storage/v1/object/public/picture//${filePath}`
 
       const inserted = await sql`
                 INSERT INTO items (item_type_id, item_name, sku, quantity, description, item_image, created_by)
@@ -416,7 +416,7 @@ const ItemsController = {
           return res.status(500).json({error: "Image upload failed."});
         }
 
-        publicUrl = `${process.env.SUPABASE_URL}.supabase.co/storage/v1/object/public/picture/${filePath}`;
+        publicUrl = `${process.env.SUPABASE_URL}/storage/v1/object/public/picture//${filePath}`
       }
 
       const updated = await sql`
