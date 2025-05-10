@@ -8,6 +8,7 @@ import {
   Text,
   Alert,
   Box,
+  Badge,
 } from "@chakra-ui/react";
 import {Pagination} from "@ark-ui/react";
 import {useEffect, useState} from "react";
@@ -16,7 +17,7 @@ import apiService from "../../../../service/apiService";
 import {SELECTED_COLOUR} from "../../../../constants/Constants";
 
 const UsersTable = () => {
-  const [withdrawals, setWithdrawal] = useState([]);
+  const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
@@ -31,7 +32,7 @@ const UsersTable = () => {
       // Check if data for the current page is already cached
       if (cache[currentPage]) {
         const cachedData = cache[currentPage];
-        setWithdrawal(cachedData.withdrawals);
+        setUsers(cachedData.users);
         setTotalItems(cachedData.totalItems);
         setTotalPages(cachedData.totalPages);
         return;
@@ -41,17 +42,17 @@ const UsersTable = () => {
       setError(null);
       try {
         const response = await apiService.get(
-          `/admin/history?page=${currentPage}&limit=${pageSize}`,
+          `/admin/list_users?page=${currentPage}&limit=${pageSize}`,
         );
 
         const data = {
-          withdrawals: response.withdrawals || [],
+          users: response.users || [],
           totalItems: response.total || 0,
           totalPages: response.pages || 1,
         };
 
         // Update state with the fetched data
-        setWithdrawal(data.withdrawals);
+        setUsers(data.users);
         setTotalItems(data.totalItems);
         setTotalPages(data.totalPages);
 
@@ -63,7 +64,7 @@ const UsersTable = () => {
       } catch (err) {
         console.error("Error fetching data:", err);
         setError(err.message || "An error occurred while fetching data. Please try again.");
-        setWithdrawal([]);
+        setUsers([]);
         setTotalItems(0);
         setTotalPages(1);
       } finally {
@@ -90,29 +91,32 @@ const UsersTable = () => {
   return (
     <Box marginTop="2rem" display="flex" flexDirection="column" gap="2rem">
       <Box bg="green.100" width="fit-content" padding="1rem" borderRadius="md">
-        <Text color="green.900">Total Withdraws</Text>
+        <Text color="green.900">Total Users</Text>
         <Heading color="green.900">{totalItems}</Heading>
       </Box>
       <Stack width="full" gap="5">
-        <Heading size="2xl">Withdrawal History</Heading>
+        <Heading size="2xl">All Users in the system</Heading>
 
         <Table.Root size="sm" variant="outline" interactive>
           <Table.Header bg="#EAECF0">
             <Table.Row>
               <Table.ColumnHeader color="black" fontWeight="bold">
-                ID
+                User ID
               </Table.ColumnHeader>
               <Table.ColumnHeader color="black" fontWeight="bold">
-                Item name
+                Username
               </Table.ColumnHeader>
               <Table.ColumnHeader color="black" fontWeight="bold">
-                Withdrawn by
+                Firstname
               </Table.ColumnHeader>
               <Table.ColumnHeader color="black" fontWeight="bold">
-                Quantity
+                Lastname
               </Table.ColumnHeader>
               <Table.ColumnHeader color="black" fontWeight="bold">
-                Created at
+                Phone
+              </Table.ColumnHeader>
+              <Table.ColumnHeader color="black" fontWeight="bold">
+                Role
               </Table.ColumnHeader>
             </Table.Row>
           </Table.Header>
@@ -123,25 +127,42 @@ const UsersTable = () => {
                   <Spinner size="xl" />
                 </Table.Cell>
               </Table.Row>
-            ) : withdrawals.length > 0 ? (
-              withdrawals.map((withdrawal) => (
+            ) : users.length > 0 ? (
+              users.map((user) => (
                 <Table.Row
-                  key={withdrawal.withdraw_id}
+                  key={user.user_id}
                   bg={"white"}
                   borderColor="gray.300"
                   _hover={{bg: "gray.100", cursor: "pointer"}}
                 >
-                  <Table.Cell>{withdrawal.withdraw_id}</Table.Cell>
-                  <Table.Cell>{withdrawal.item_name}</Table.Cell>
-                  <Table.Cell>{withdrawal.withdrawn_by}</Table.Cell>
-                  <Table.Cell>{withdrawal.quantity}</Table.Cell>
-                  <Table.Cell>{new Date(withdrawal.created_at).toLocaleString()}</Table.Cell>
+                  <Table.Cell>{user.user_id}</Table.Cell>
+                  <Table.Cell>{user.uname}</Table.Cell>
+                  <Table.Cell>{user.fname}</Table.Cell>
+                  <Table.Cell>{user.lname}</Table.Cell>
+                  <Table.Cell>{user.phone}</Table.Cell>
+                  <Table.Cell>
+                    <Badge
+                      bg={
+                        user.role === "admin"
+                          ? "teal.600"
+                          : user.role === "user"
+                            ? "blue.600"
+                            : "yellow.600"
+                      }
+                      fontSize="0.8em"
+                      fontWeight="semibold"
+                      padding="0.5rem"
+                      borderRadius="md"
+                    >
+                      {user.role}
+                    </Badge>
+                  </Table.Cell>
                 </Table.Row>
               ))
             ) : (
               <Table.Row>
                 <Table.Cell colSpan={5} textAlign="center">
-                  <Text>No withdrawals found.</Text>
+                  <Text>No users found.</Text>
                 </Table.Cell>
               </Table.Row>
             )}

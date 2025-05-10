@@ -12,7 +12,6 @@ route.post("/user/SignUp", UserController.SignUp);
 route.post("/user/LogIn", UserController.LogIn);
 route.get("/user/info", isAuth, Role("user", "admin"), UserController.UserInfo);
 route.get("/user/history", isAuth, Role("user"), UserController.UserWithdrawalHistory);
-route.get("/admin/list_users", isAuth, Role("admin"), UserController.ListAllUsers);
 
 //Items route
 route.get("/items/search", isAuth, Role("admin", "user"), ItemsController.SearchItems);
@@ -40,5 +39,6 @@ route.put(
 //admin routes
 route.get("/admin/history", isAuth, Role("admin"), AdminController.GetAllWithdrawals);
 route.get("/admin/summary", isAuth, Role("admin"), AdminController.GetAdminSummary);
+route.get("/admin/list_users", isAuth, Role("admin"), UserController.ListAllUsers);
 
 export default route;
