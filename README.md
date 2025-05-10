@@ -1,6 +1,31 @@
 # Warehouse Inventory App
 
-A full-stack warehouse inventory management application built with a React frontend and Node.js/Express backend, using Supabase as the database.
+## Introduction
+Welcome to the Warehouse Inventory App! This application is designed to provide an efficient and user-friendly solution for managing warehouse inventory. It allows users to track stock withdrawals, manage items, and streamline overall warehouse operations.
+
+### Technology Stack
+The application is built using a modern and robust technology stack to ensure scalability, performance, and a great user experience.
+
+### Frontend: 
+React.js: A JavaScript library for building dynamic and responsive user interfaces.
+Redux: Used for efficient application state management.
+Chakra UI: A component library for creating polished and accessible user interfaces.
+
+### Backend:
+- Node.js: A JavaScript runtime environment for building the server-side logic.
+- Express.js: A web application framework for Node.js, used for managing API endpoints.
+- JWT (JSON Web Tokens): Implemented for secure authentication and authorization for API usage.
+
+### Database:
+- Supabase: An open-source Firebase alternative providing a scalable real-time database solution, along with authentication, storage, and other backend services.
+
+### Development Workflow:
+- Monorepo Architecture: The frontend and backend codebases are managed within a single repository. This approach enhances code sharing, simplifies dependency management, and promotes consistency across the project.
+
+### Deployment:
+- GitHub: Used for version control and collaboration.
+- Vercel: The frontend and backend are deployed as separate packages to Vercel, offering flexibility, independent scaling of services, and continuous deployment.
+
 
 ## Project Structure
 
