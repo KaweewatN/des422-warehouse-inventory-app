@@ -1,5 +1,14 @@
 # Warehouse Inventory App
 
+## Group member
+Kaweewat Noisuwan ID: 6522781259
+Nipun Kharuehapaisarn ID: 6522771896
+Nawasawan Yenrompho ID: 6522780863
+Phonchana Matta ID: 6522770419
+
+##Course 
+DES422 Business Application Development
+
 ## Introduction
 Welcome to the Warehouse Inventory App! This application is designed to provide an efficient and user-friendly solution for managing warehouse inventory. It allows users to track stock withdrawals, manage items, and streamline overall warehouse operations.
 
