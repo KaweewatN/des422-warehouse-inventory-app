@@ -22,7 +22,7 @@ Chakra UI: A component library for creating polished and accessible user interfa
 
 #### Backend:
 - Node.js: A JavaScript runtime environment for building the server-side logic.
-- Express.js: A web application framework for Node.js, used for managing API endpoints.
+- Express.js: A web application framework for Node.js that is used to manage API endpoints.
 - JWT (JSON Web Tokens): Implemented for secure authentication and authorization for API usage.
 
 #### Database:
@@ -73,12 +73,20 @@ des422-warehouse-inventory-app/
    cd des422-warehouse-inventory-app
    ```
 
-2. **Install dependencies for all packages:**
+2. **Install dependencies for all packages (Both frontend and backend):**
    ```sh
-   npm install
+   npm run install-all
    ```
 
 ### Running the App
+
+#### From the root folder (Both Frontend and Backend)
+1. Run the following command in the terminal for the root path 
+   ```sh
+   npm run lerna-start
+   ```
+2. **Backend:** Using APIs through [http://localhost:3001/api](http://localhost:3001/api) followed by endpoints.
+3. **Frontend:** Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 #### Backend
 1. Copy `.env` to `packages/backend/.env` and fill in your Supabase credentials.
@@ -106,12 +114,9 @@ The backend requires the following variables in `packages/backend/.env`:
 - `PORT` – Backend server port (default: 3001)
 - `DATABASE_URL` – PostgreSQL connection string
 
-**Do not commit sensitive credentials to public repositories.**
-
 ## Scripts
 From the root or within each package:
 
-- `npm start` – Start the development server
-- `npm test` – Run tests
-- `npm run build` – Build for production
+- `npm run lerna-start` – Start the development server
+- `npm run lerna-dev` – Run the server in development mode
 
