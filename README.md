@@ -1,10 +1,10 @@
 # Warehouse Inventory App
 
 ## Group member
-Kaweewat Noisuwan ID: 6522781259
-Nipun Kharuehapaisarn ID: 6522771896
-Nawasawan Yenrompho ID: 6522780863
-Phonchana Matta ID: 6522770419
+- Kaweewat Noisuwan ID: 6522781259
+- Nipun Kharuehapaisarn ID: 6522771896
+- Nawasawan Yenrompho ID: 6522780863
+- Phonchana Matta ID: 6522770419
 
 ## Course 
 DES422 Business Application Development
