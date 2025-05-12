@@ -153,6 +153,7 @@ const UsersTable = () => {
                       fontWeight="semibold"
                       padding="0.5rem"
                       borderRadius="md"
+                      color="white"
                     >
                       {user.role}
                     </Badge>

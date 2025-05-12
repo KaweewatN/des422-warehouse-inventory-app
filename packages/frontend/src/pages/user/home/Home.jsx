@@ -207,7 +207,7 @@ export default function Home() {
                     <Text fontSize="lg" fontWeight="bold">
                       {item.item_name}
                     </Text>
-                    <Badge p="1" bg="gray.700">
+                    <Badge p="1" bg="gray.700" color="white">
                       {item.item_type}
                     </Badge>
                   </Flex>
